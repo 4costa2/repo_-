@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presupuesto contrapiso</title>
+  <style>
+    body {
+      padding-inline-start: 35%;
+      color: aliceblue;
+      background-color: rgb(49, 49, 49);
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    button {
+      padding: 7px;
+      border: none;
+      border-radius: 15px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .formulario {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.6s ease, opacity 0.6s ease;
+    }
+
+    .formulario.mostrar {
+      max-height: 1000px;
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Presupuesto contrapiso</h1>
+
+  <button onclick="mostrarRectangulo()">Perímetro Cuadrado ⏹️</button>
+  <button onclick="mostrarProporciones()">Proporciones Materiales ⚙️</button>
+  <button onclick="reinicio()">Reiniciar</button>
+
+  <!-- interfaz_rectángulo -->
+  <div id="form_rectangulo" class="formulario">
+    <form onsubmit="calc_cuadrado_rectangulo(); return false">
+      <h3>Calculo contrapiso de forma Cuadrada o Rectángular</h3>
+      <p>Largo (m): <input type="number" id="largo" required></p>
+      <p>Ancho (m): <input type="number" id="ancho" required></p>
+      <p>Profundidad (cm): <input type="number" id="altura" required></p>
+
+      <h3>Costo de los materiales (opcionales)</h3>
+      <p>Precio del m³ de arena <input type="number" id="precio_arena"></p>
+      <p>Precio del m³ de ripio <input type="number" id="precio_ripio"></p>
+      <p>Precio bolsa de cemento <input type="number" id="precio_cemento"></p>
+
+      <button>Calcular</button>
+    </form>
+    <div id="resultado_1"></div>
+  </div>
+
+  <!-- formulario proporciones materiales -->
+  <div id="form_proporciones" class="formulario">
+    <p>Presupuesto inicial <input type="number" id="Presupuesto_2" placeholder="(opcional)"></p>
+    <h3>Proporción de mezcla (baldes de 7 litros) (modificable)</h3>
+    <p>Arena: <input type="number" id="prop_arena" value="3"></p>
+    <p>Ripio: <input type="number" id="prop_ripio" value="3"></p>
+    <p>Cemento: <input type="number" id="prop_cemento" value="1"></p>
+  </div>
+
+  <script>
+    const cantidad_baldes_mcubi = { "arena": 145, "ripio": 140, "cemento": 143 }
+    const proporciones_mezcla = { "arena": 3, "ripio": 3, "cemento": 1 }
+    const VOLUMEN_BOLSA_CEMENTO = 0.0398
+
+
+    function calcularMateriales(volumen, proporciones, precios) {
+      const sumaPartes = proporciones.arena + proporciones.ripio + proporciones.cemento;
+
+      const volumenes = {
+        arena: (proporciones.arena / sumaPartes) * volumen,
+        ripio: (proporciones.ripio / sumaPartes) * volumen,
+        cemento: (proporciones.cemento / sumaPartes) * volumen
+      };
+
+      const baldes = {
+        arena: volumenes.arena,
+        ripio: volumenes.ripio,
+        cemento: Math.ceil(volumenes.cemento / VOLUMEN_BOLSA_CEMENTO)
+      };
+
+      const costos = {
+        arena: volumenes.arena * precios.arena,
+        ripio: volumenes.ripio * precios.ripio,
+        cemento: baldes.cemento * precios.cemento
+      };
+
+      const total = costos.arena + costos.ripio + costos.cemento;
+
+      return { volumenes, baldes, costos, total };
+    }
+
+    function calc_cuadrado_rectangulo() {
+      let largo = Number(document.getElementById("largo").value);
+      let ancho = Number(document.getElementById("ancho").value);
+      let profundidad = Number(document.getElementById("altura").value) / 100;
+      let presupuesto = Number(document.getElementById("Presupuesto_2").value) || 0;
+
+      let area = largo * ancho;
+      let volumen = area * profundidad;
+
+      const proporciones = {
+        arena: Number(document.getElementById("prop_arena").value),
+        ripio: Number(document.getElementById("prop_ripio").value),
+        cemento: Number(document.getElementById("prop_cemento").value)
+      };
+
+      const precios = {
+        arena: Number(document.getElementById("precio_arena").value),
+        ripio: Number(document.getElementById("precio_ripio").value),
+        cemento: Number(document.getElementById("precio_cemento").value)
+      };
+
+      const resultado = calcularMateriales(volumen, proporciones, precios);
+      const diferencia = presupuesto ? presupuesto - resultado.total : null;
+
+      document.getElementById("resultado_1").innerHTML = `
+        Área: ${area.toFixed(2)} m²<br>
+        Volumen: ${volumen.toFixed(2)} m³<br>
+        Arena: ${resultado.volumenes.arena.toFixed(2)} m³<br>
+        Ripio: ${resultado.volumenes.ripio.toFixed(2)} m³<br>
+        Cemento: ${resultado.baldes.cemento} bolsas<br>
+        Costo total: $${resultado.total.toFixed(2)}
+        ${presupuesto ? `<br>Presupuesto: $${presupuesto.toFixed(2)}<br>${diferencia >= 0 ? "Sobra" : "Falta"}: $${Math.abs(diferencia).toFixed(2)}` : ""}
+      `;
+    }
+
+    function mostrarRectangulo() {
+      document.getElementById("form_rectangulo").classList.add("mostrar");
+      document.getElementById("form_proporciones").classList.remove("mostrar");
+    }
+
+    function mostrarProporciones() {
+      document.getElementById("form_proporciones").classList.add("mostrar");
+      document.getElementById("form_rectangulo").classList.remove("mostrar");
+    }
+
+    function reinicio() {
+      document.getElementById("form_rectangulo").classList.remove("mostrar");
+      document.getElementById("form_proporciones").classList.remove("mostrar");
+      document.getElementById("resultado_1").innerHTML = "";
+    }
+  </script>
+</body>
+
+</html>
