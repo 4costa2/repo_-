@@ -1,35 +1,39 @@
-
-
-let TamanobolsaCemento = Number(document.getElementById("tamañoBolsa").value);
-let tamanoBaldes = Number(document.getElementById("tamañoBalde").value);
-
 const proporciones_mezcla_hormigon_base = { arena: 4, ripio: 4, cemento: 2 };
-const proporciones_mezcla_mortero_base={arena: 7 ,cemento:2}
+const proporciones_mezcla_mortero_base = { arena: 7, cemento: 2 };
 
-function calcularMateriales(volumen, proporciones, precios) {
+function calcularMateriales(volumen, proporciones, precios,TamanobolsaCemento) {
+    volumen_con_perdida = volumen*1.05;
     const sumaPartes =
-        proporciones.arena + proporciones.ripio + proporciones.cemento;
+    proporciones.arena + proporciones.ripio + proporciones.cemento;
 
     const volumenes = {
         arena: (proporciones.arena / sumaPartes) * volumen,
         ripio: (proporciones.ripio / sumaPartes) * volumen,
-        cemento: (proporciones.cemento / sumaPartes) * volumen,
     };
-
-    
+    const volumen_un_balde = tamanoBaldes / 1000;//el 1000 es para pasar a m3 los lts del balde 1m3 es aprox 1000 l
+    const volumen_maquinada = sumaPartes * volumen_un_balde;
+    const cantidad_maquinadas = volumen_con_perdida / volumen_maquinada;
+    const baldes_cemento_totales = cantidad_maquinadas * proporciones.cemento;
+    const baldes_por_bolsa = TamanobolsaCemento / tamanoBaldes;
+    const bolsas_exactas = baldes_cemento_totales / baldes_por_bolsa;
+    const bolsas_recomendadas = Math.ceil(bolsas_exactas);
 
     const costos = {
-        arena: volumenes.arena * precios.arena,
-        ripio: volumenes.ripio * precios.ripio,
-        cemento: baldes.cemento * precios.cemento,
+        arena: volumenes.arena * sumaPartes.arena,
+        ripio: volumenes.ripio * sumaPartes.ripio,
+        cemento: bolsas_recomendadas * precios.cemento,
     };
 
     const total = costos.arena + costos.ripio + costos.cemento;
 
-    return { volumenes, baldes, costos, total };
+    return { volumenes, bolsas_exactas, bolsas_recomendadas, costos, total };
 }
 
 function calculo_contrapiso() {
+    let TamanobolsaCemento = Number(
+        document.getElementById("tamanoBolsa").value,
+    );
+    let tamanoBaldes = Number(document.getElementById("tamanoBalde").value);
     let largo = Number(document.getElementById("largo").value);
     let ancho = Number(document.getElementById("ancho").value);
     let profundidad = Number(document.getElementById("altura").value) / 100;
@@ -49,7 +53,7 @@ function calculo_contrapiso() {
         cemento: Number(document.getElementById("precio_cemento").value),
     };
 
-    const resultado = calcularMateriales(volumen, proporciones, precios);
+    const resultado = calcularMateriales(volumen, proporciones, precios,TamanobolsaCemento);
     const diferencia = presupuesto ? presupuesto - resultado.total : null; // revisar
 
     document.getElementById("resultado_1").innerHTML = `
@@ -63,7 +67,7 @@ function calculo_contrapiso() {
         </div>
         ${presupuesto ? `<div class="mt-2 pt-2 border-t border-zinc-700 text-xs"><span class="text-zinc-500">Presupuesto:</span> $${presupuesto.toFixed(2)}<br><span class="${diferencia >= 0 ? "text-emerald-400" : "text-rose-400"} font-semibold">${diferencia >= 0 ? "Sobra" : "Falta"}: $${Math.abs(diferencia).toFixed(2)}</span></div>` : ""}
       `;
-} 
+}
 function mostrarProporciones() {
     const propDiv = document.getElementById("form_proporciones");
     if (propDiv.classList.contains("max-h-0")) {
