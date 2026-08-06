@@ -1,10 +1,24 @@
-const proporciones= { arena: 4, ripio: 4, cemento: 2 };
-const proporciones_mezcla_mortero_base = { arena: 7, cemento: 2 };
+let proporciones= { arena, ripio, cemento};
+let arena = Number(document.getElementById("arena").value
+
+
+if(arena!=null && document.getElementById("ripio").value!=null && document.getElementById("cemento").value!=null){
+proporciones.arena=Number(document.getElementById("arena").value);
+proporciones.ripio=Number(document.getElementById("ripio").value);
+proporciones.cemento=Number(document.getElementById("cemento").value);
+}
+else{
+    proporciones.arena=4;
+    proporciones.ripio=4;
+    proporciones.cemento=2
+}
+
+//Implementar mas adelante
+//const proporciones_mezcla_mortero_base = { arena: 7, cemento: 2 };
 
 function calcularMateriales(volumen, precios,TamanobolsaCemento,tamanoBaldes) {
-    const volumen_con_perdida = volumen*1.05;
-    const sumaPartes =
-    proporciones.arena + proporciones.ripio + proporciones.cemento;
+    const volumen_con_perdida = volumen * 1.05;
+    const sumaPartes = proporciones.arena + proporciones.ripio + proporciones.cemento;
 
     const volumenes = {
         arena: Math.ceil((proporciones.arena / sumaPartes) * volumen_con_perdida),
@@ -73,7 +87,7 @@ if (event) {
 
     document.getElementById("resultado_1").innerHTML = `
         <div class="grid grid-cols-2 gap-2 text-zinc-300">
-        <div><span class="text-zinc-500">Área:</span> ${(area).toFixed(2)} m²</div>
+        <div><span class="text-zinc-500">Área: </span>${(area).toFixed(2)} m²</div>
         <div><span class="text-zinc-500">Volumen:</span> ${volumen.toFixed(2)} m³</div>
         <div><span class="text-zinc-500">Arena:</span> ${resultado.volumenes.arena} m³</div>
         <div><span class="text-zinc-500">Ripio:</span> ${resultado.volumenes.ripio} m³</div>
