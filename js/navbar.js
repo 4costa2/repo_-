@@ -17,9 +17,19 @@ navbar.innerHTML = `
                 Home
             </a>
 
-            <a href="arreglar.html"
+            <a href="/contrapiso/contrapiso.html"
                class="transition hover:text-sky-500">
-                Calculadora
+                Calcular contrapiso
+            </a>
+
+            <a href="/techo/techo.html"
+               class="transition hover:text-sky-500">
+                Calcular contrapiso
+            </a>
+
+            <a href="/pared/pared.html"
+               class="transition hover:text-sky-500">
+                Calcular contrapiso
             </a>
 
 
