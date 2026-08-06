@@ -24,12 +24,12 @@ navbar.innerHTML = `
 
             <a href="/techo/techo.html"
                class="transition hover:text-sky-500">
-                Calcular contrapiso
+                Calcular techo
             </a>
 
             <a href="/pared/pared.html"
                class="transition hover:text-sky-500">
-                Calcular contrapiso
+                Calcular pared
             </a>
 
 
