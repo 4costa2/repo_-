@@ -19,8 +19,8 @@ function calcularMateriales(volumen, proporciones, precios,TamanobolsaCemento) {
     const bolsas_recomendadas = Math.ceil(bolsas_exactas);
 
     const costos = {
-        arena: volumenes.arena * sumaPartes.arena,
-        ripio: volumenes.ripio * sumaPartes.ripio,
+        arena: volumenes.arena * precios.arena,
+        ripio: volumenes.ripio * precios.ripio,
         cemento: bolsas_recomendadas * precios.cemento,
     };
 
@@ -30,9 +30,7 @@ function calcularMateriales(volumen, proporciones, precios,TamanobolsaCemento) {
 }
 
 function calculo_contrapiso() {
-    let TamanobolsaCemento = Number(
-        document.getElementById("tamanoBolsa").value,
-    );
+    let TamanobolsaCemento = Number( document.getElementById("tamanoBolsa").value);
     let tamanoBaldes = Number(document.getElementById("tamanoBalde").value);
     let largo = Number(document.getElementById("largo").value);
     let ancho = Number(document.getElementById("ancho").value);
@@ -58,15 +56,15 @@ function calculo_contrapiso() {
 
     document.getElementById("resultado_1").innerHTML = `
         <div class="grid grid-cols-2 gap-2 text-zinc-300">
-          <div><span class="text-zinc-500">Área:</span> ${area.ceil()} m²</div>
-          <div><span class="text-zinc-500">Volumen:</span> ${volumen.ceil()} m³</div>
-          <div><span class="text-zinc-500">Arena:</span> ${resultado.volumenes.arena.ceil()} m³</div>
-          <div><span class="text-zinc-500">Ripio:</span> ${resultado.volumenes.ripio.ceil()} m³</div>
-          <div><span class="text-zinc-500">Cemento:</span> ${resultado.baldes.cemento} bolsas</div>
-          <div class="col-span-2 font-semibold text-emerald-400 pt-2 border-t border-zinc-700">Costo total: $${resultado.total.toFixed(2)}</div>
+        <div><span class="text-zinc-500">Área:</span> ${area.ceil()} m²</div>
+        <div><span class="text-zinc-500">Volumen:</span> ${volumen.ceil()} m³</div>
+        <div><span class="text-zinc-500">Arena:</span> ${resultado.volumenes.arena.ceil()} m³</div>
+        <div><span class="text-zinc-500">Ripio:</span> ${resultado.volumenes.ripio.ceil()} m³</div>
+        <div><span class="text-zinc-500">Cemento:</span> ${resultado.baldes.cemento} bolsas</div>
+        <div class="col-span-2 font-semibold text-emerald-400 pt-2 border-t border-zinc-700">Costo total: $${resultado.total.toFixed(2)}</div>
         </div>
         ${presupuesto ? `<div class="mt-2 pt-2 border-t border-zinc-700 text-xs"><span class="text-zinc-500">Presupuesto:</span> $${presupuesto.toFixed(2)}<br><span class="${diferencia >= 0 ? "text-emerald-400" : "text-rose-400"} font-semibold">${diferencia >= 0 ? "Sobra" : "Falta"}: $${Math.abs(diferencia).toFixed(2)}</span></div>` : ""}
-      `;
+        `;
 }
 function mostrarProporciones() {
     const propDiv = document.getElementById("form_proporciones");
