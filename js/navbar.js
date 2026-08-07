@@ -12,22 +12,22 @@ navbar.innerHTML = `
 
         <nav class="flex items-center gap-6">
 
-            <a href="home.html"
+            <a href="/home.html"
                class="transition hover:text-sky-500">
                 Home
             </a>
 
-            <a href="./contrapiso/contrapiso.html"
+            <a href="/contrapiso/contrapiso.html"
                class="transition hover:text-sky-500">
                 Calcular contrapiso
             </a>
 
-            <a href="./techo/techo.html"
+            <a href="/techo/techo.html"
                class="transition hover:text-sky-500">
                 Calcular techo
             </a>
 
-            <a href="./pared/pared.html"
+            <a href="/pared/pared.html"
                class="transition hover:text-sky-500">
                 Calcular pared
             </a>

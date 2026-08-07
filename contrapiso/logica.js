@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+    mostrarProporcionesActuales();
+});
+
 if (!localStorage.getItem("proporciones")) {
     localStorage.setItem(
         "proporciones",
@@ -16,7 +20,9 @@ function ajustarProporciones() {
         cemento: Number(document.getElementById("cemento").value) || 2
     };
 
-    localStorage.setItem("proporciones", JSON.stringify(proporciones))   
+    localStorage.setItem("proporciones", JSON.stringify(proporciones))  
+    
+    mostrarProporcionesActuales()
 }
 
 
@@ -133,4 +139,27 @@ function mostrarProporciones() {
         propDiv.classList.add("max-h-0", "opacity-0");
         propDiv.classList.remove("max-h-[1000px]", "opacity-100");
     }
+}
+
+function mostrarProporcionesActuales(){
+    const proporciones = JSON.parse(localStorage.getItem("proporciones")) || {
+        arena: 4,
+        ripio: 4,
+        cemento:2
+    };
+
+    document.getElementById("arenaDato").textContent = proporciones.arena
+    document.getElementById("ripioDato").textContent = proporciones.ripio
+    document.getElementById("cementoDato").textContent = proporciones.cemento
+}
+
+function reinicio(){
+    document.getElementById("precio_arena").value=""
+    document.getElementById("precio_ripio").value=""
+    document.getElementById("precio_cemento").value=""
+    document.getElementById("tamanoBalde").value=""
+    document.getElementById("tamanoBolsa").value=""
+    document.getElementById("largo").value=""
+    document.getElementById("ancho").value=""
+    document.getElementById("altura").value=""
 }
