@@ -102,7 +102,11 @@
 
 
 
-          
+
+
+
+
+
 
           <button type="submit"
             class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg cursor-pointer">
@@ -111,6 +115,37 @@
           <div id="resultado_1"
             class="mt-4 empty:hidden bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-1 text-sm"></div>
         </form>
+
+      </div>
+
+
+      <div class="flex flex-col bg-zinc-900/50 p-4 rounded-xl border border-zinc-700/60 space-y-3 items-center justify-center">
+        <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider">Configurar proporciones</h3>
+        <h5 class="text-xs text-gray-400 ">Las proporciones por defecto son arena 4 baldes, ripio 4 baldes y cemento 2
+          baldes</h5>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs text-zinc-400 mb-1">arena</label>
+            <input type="number" id="arena" placeholder="4"
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs text-zinc-400 mb-1">ripio</label>
+            <input type="number" id="ripio" placeholder="4"
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs text-zinc-400 mb-1">cemento</label>
+            <input type="number" id="cemento" placeholder="2"
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+
+        </div>
+
+        <button onclick="ajustarProporciones()"
+          class="w-80 bg-cyan-600 hover:bg-cyan-800 text-white font-medium py-3 rounded-xl transition-all shadow-lg cursor-pointer">Ajustar
+          Proporciones</button>
 
       </div>
     </div>
