@@ -26,26 +26,17 @@ function ajustarProporciones() {
     mostrarProporcionesActuales();
 }
 
-function calcularMateriales(area, precios, TamanobolsaCemento, tamanoBaldes) {
+function calcularMateriales(area, precios, TamanobolsaCemento, tamanoBaldes,tipoLadrillo) {
     let proporcionesPared = JSON.parse(
         localStorage.getItem("proporcionesPared"),
     );
     // 1m2 de pared se necesita 1 maquinada
     let cantidadBaldesArena = proporcionesPared.arena * area;
+    let volumenBalde=tamanoBaldes/1000
+    let volumenArena= cantidadBaldesArena*volumenBalde
 
-    //1m3 de arena rinde aproximadamente 13  maquinada  y cada maquinada lleva 8 baldes de arena
-    //(1m3 /13)=0.08m3 volumen aproximado de cada maquinada
+    
 
-    /** segun chatgpt
-     * let cantidadBaldesArena = proporcionesPared.arena * area;
-
-        let litrosBalde = 8;
-
-        let volumenBalde = litrosBalde / 1000;
-
-        let volumenArena = cantidadBaldesArena * volumenBalde;
-     */
-    let volumenArena = cantidadBaldesArena * 0.08;
 
     const sumaPartes = proporciones.arena + proporciones.cemento;
 
@@ -59,7 +50,7 @@ function calcularMateriales(area, precios, TamanobolsaCemento, tamanoBaldes) {
 
     const costos = {
         arena: volumenes.arena * precios.arena,
-        ripio: volumenes.ripio * precios.ripio,
+        ladrillos: cantidad*precios.ladrillos
         cemento: bolsas_recomendadas * precios.cemento,
     };
 
