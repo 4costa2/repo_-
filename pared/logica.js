@@ -47,10 +47,11 @@ function calcularMateriales(area, precios, TamanobolsaCemento, tamanoBaldes,tipo
     const baldes_por_bolsa = TamanobolsaCemento / tamanoBaldes;
     const bolsas_exactas = baldes_cemento_totales / baldes_por_bolsa;
     const bolsas_recomendadas = Math.ceil(bolsas_exactas);
+    const cantidad_Ladrillos=area*55//55 es la cantidad promedio aproximada de ladrillos que entran en 1m2 de pared, igualmente 
 
     const costos = {
         arena: volumenes.arena * precios.arena,
-        ladrillos: cantidad*precios.ladrillos
+        ladrillos: cantidad*precios.ladrillos,
         cemento: bolsas_recomendadas * precios.cemento,
     };
 
