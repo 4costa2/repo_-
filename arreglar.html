@@ -4,72 +4,138 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store">
   <title>Presupuesto contrapiso</title>
-  <style>
-    body {
-      padding-inline-start: 35%;
-      color: aliceblue;
-      background-color: rgb(49, 49, 49);
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
 
-    button {
-      padding: 7px;
-      border: none;
-      border-radius: 15px;
-      margin: 5px;
-      cursor: pointer;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
-
-    .formulario {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.6s ease, opacity 0.6s ease;
-    }
-
-    .formulario.mostrar {
-      max-height: 1000px;
-      opacity: 1;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="js/guard.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
 </head>
 
 <body>
-  <h1>Presupuesto contrapiso</h1>
+  <div id="navbar"></div>
+  <div class="bg-zinc-900 text-slate-100 font-sans min-h-screen py-10 px-4 sm:px-8 flex flex-col items-center">
+    <div
+      class="w-full max-w-xl bg-zinc-800/80 backdrop-blur-sm border border-zinc-700 rounded-2xl shadow-xl p-6 sm:p-8 space-y-6">
 
-  <button onclick="mostrarRectangulo()">Perímetro Cuadrado ⏹️</button>
-  <button onclick="mostrarProporciones()">Proporciones Materiales ⚙️</button>
-  <button onclick="reinicio()">Reiniciar</button>
+      <header class="text-center space-y-2">
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center justify-center gap-2">
+          <span>Presupuesto contrapiso</span>
+        </h1>
+        <p class="text-xs text-zinc-400">Calcula materiales, costos y proporciones fácilmente</p>
+      </header>
 
-  <!-- interfaz_rectángulo -->
-  <div id="form_rectangulo" class="formulario">
-    <form onsubmit="calc_cuadrado_rectangulo(); return false">
-      <h3>Calculo contrapiso de forma Cuadrada o Rectángular</h3>
-      <p>Largo (m): <input type="number" id="largo" required></p>
-      <p>Ancho (m): <input type="number" id="ancho" required></p>
-      <p>Profundidad (cm): <input type="number" id="altura" required></p>
+      <!-- Botones de navegación (Se quitó el botón innecesario del rectángulo) -->
+      <div class="flex flex-wrap gap-3 justify-center pt-2">
+        <button onclick="mostrarProporciones()"
+          class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl transition-all shadow-md cursor-pointer flex items-center gap-2 text-sm">
+          Proporciones Materiales ⚙️
+        </button>
+        <button onclick="reinicio()"
+          class="bg-zinc-700 hover:bg-zinc-600 text-zinc-200 font-medium px-4 py-2 rounded-xl transition-all shadow-md cursor-pointer text-sm">
+          Reiniciar
+        </button>
+      </div>
 
-      <h3>Costo de los materiales (opcionales)</h3>
-      <p>Precio del m³ de arena <input type="number" id="precio_arena"></p>
-      <p>Precio del m³ de ripio <input type="number" id="precio_ripio"></p>
-      <p>Precio bolsa de cemento <input type="number" id="precio_cemento"></p>
+      <!-- interfaz_rectángulo (Siempre desplegado por defecto) -->
+      <div id="form_rectangulo" class="formulario block space-y-6">
+        <form onsubmit="calc_cuadrado_rectangulo(); return false" class="space-y-4">
 
-      <button>Calcular</button>
-    </form>
-    <div id="resultado_1"></div>
+          <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-700/60 space-y-3">
+            <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider">Calculo contrapiso de forma
+              Cuadrada o Rectángular</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs text-zinc-400 mb-1">Largo (m)</label>
+                <input type="number" id="largo" step="any" required
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+              <div>
+                <label class="block text-xs text-zinc-400 mb-1">Ancho (m)</label>
+                <input type="number" id="ancho" step="any" required
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+              <div>
+                <label class="block text-xs text-zinc-400 mb-1">Profundidad (cm)</label>
+                <input type="number" id="altura" step="any" required
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-700/60 space-y-3">
+            <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider">Costo de los materiales
+              (opcionales)</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs text-zinc-400 mb-1">Precio m³ arena</label>
+                <input type="number" id="precio_arena" step="any"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+              <div>
+                <label class="block text-xs text-zinc-400 mb-1">Precio m³ ripio</label>
+                <input type="number" id="precio_ripio" step="any"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+              <div>
+                <label class="block text-xs text-zinc-400 mb-1">Precio bolsa cemento</label>
+                <input type="number" id="precio_cemento" step="any"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit"
+            class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg cursor-pointer">
+            Calcular Presupuesto
+          </button>
+        </form>
+
+       
+
+      <!-- formulario proporciones materiales (Oculto por defecto, se despliega con el botón) -->
+      <div id="form_proporciones"
+        class="formulario max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out space-y-4 bg-zinc-900/50 p-4 rounded-xl border border-zinc-700/60">
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Presupuesto inicial</label>
+          <input type="number" id="Presupuesto_2" placeholder="(opcional)"
+            class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider pt-2">Proporción de mezcla (baldes de
+          7
+          litros) (modificable)</h3>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs text-zinc-400 mb-1">Arena</label>
+            <input type="number" id="prop_arena" value="3"
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs text-zinc-400 mb-1">Ripio</label>
+            <input type="number" id="prop_ripio" value="3"
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs text-zinc-400 mb-1">Cemento</label>
+            <input type="number" id="prop_cemento" value="1"
+              class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+      </div>
+
+
+       <div id="resultado_1"
+          class="mt-4 empty:hidden bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-1 text-sm"></div>
+      </div>
+
+    </div>
   </div>
-
-  <!-- formulario proporciones materiales -->
-  <div id="form_proporciones" class="formulario">
-    <p>Presupuesto inicial <input type="number" id="Presupuesto_2" placeholder="(opcional)"></p>
-    <h3>Proporción de mezcla (baldes de 7 litros) (modificable)</h3>
-    <p>Arena: <input type="number" id="prop_arena" value="3"></p>
-    <p>Ripio: <input type="number" id="prop_ripio" value="3"></p>
-    <p>Cemento: <input type="number" id="prop_cemento" value="1"></p>
-  </div>
-
   <script>
     const cantidad_baldes_mcubi = { "arena": 145, "ripio": 140, "cemento": 143 }
     const proporciones_mezcla = { "arena": 3, "ripio": 3, "cemento": 1 }
@@ -127,32 +193,41 @@
       const diferencia = presupuesto ? presupuesto - resultado.total : null;
 
       document.getElementById("resultado_1").innerHTML = `
-        Área: ${area.toFixed(2)} m²<br>
-        Volumen: ${volumen.toFixed(2)} m³<br>
-        Arena: ${resultado.volumenes.arena.toFixed(2)} m³<br>
-        Ripio: ${resultado.volumenes.ripio.toFixed(2)} m³<br>
-        Cemento: ${resultado.baldes.cemento} bolsas<br>
-        Costo total: $${resultado.total.toFixed(2)}
-        ${presupuesto ? `<br>Presupuesto: $${presupuesto.toFixed(2)}<br>${diferencia >= 0 ? "Sobra" : "Falta"}: $${Math.abs(diferencia).toFixed(2)}` : ""}
+        <div class="grid grid-cols-2 gap-2 text-zinc-300">
+          <div><span class="text-zinc-500">Área:</span> ${area.toFixed(2)} m²</div>
+          <div><span class="text-zinc-500">Volumen:</span> ${volumen.toFixed(2)} m³</div>
+          <div><span class="text-zinc-500">Arena:</span> ${resultado.volumenes.arena.toFixed(2)} m³</div>
+          <div><span class="text-zinc-500">Ripio:</span> ${resultado.volumenes.ripio.toFixed(2)} m³</div>
+          <div><span class="text-zinc-500">Cemento:</span> ${resultado.baldes.cemento} bolsas</div>
+          <div class="col-span-2 font-semibold text-emerald-400 pt-2 border-t border-zinc-700">Costo total: $${resultado.total.toFixed(2)}</div>
+        </div>
+        ${presupuesto ? `<div class="mt-2 pt-2 border-t border-zinc-700 text-xs"><span class="text-zinc-500">Presupuesto:</span> $${presupuesto.toFixed(2)}<br><span class="${diferencia >= 0 ? "text-emerald-400" : "text-rose-400"} font-semibold">${diferencia >= 0 ? "Sobra" : "Falta"}: $${Math.abs(diferencia).toFixed(2)}</span></div>` : ""}
       `;
     }
 
-    function mostrarRectangulo() {
-      document.getElementById("form_rectangulo").classList.add("mostrar");
-      document.getElementById("form_proporciones").classList.remove("mostrar");
-    }
-
     function mostrarProporciones() {
-      document.getElementById("form_proporciones").classList.add("mostrar");
-      document.getElementById("form_rectangulo").classList.remove("mostrar");
+      const propDiv = document.getElementById("form_proporciones");
+      if (propDiv.classList.contains("max-h-0")) {
+        propDiv.classList.remove("max-h-0", "opacity-0");
+        propDiv.classList.add("max-h-[1000px]", "opacity-100");
+      } else {
+        propDiv.classList.add("max-h-0", "opacity-0");
+        propDiv.classList.remove("max-h-[1000px]", "opacity-100");
+      }
     }
 
     function reinicio() {
-      document.getElementById("form_rectangulo").classList.remove("mostrar");
-      document.getElementById("form_proporciones").classList.remove("mostrar");
+      document.getElementById("form_rectangulo").querySelector("form").reset();
+      document.getElementById("form_proporciones").querySelector("input#Presupuesto_2").value = "";
+      document.getElementById("form_proporciones").querySelector("input#prop_arena").value = "3";
+      document.getElementById("form_proporciones").querySelector("input#prop_ripio").value = "3";
+      document.getElementById("form_proporciones").querySelector("input#prop_cemento").value = "1";
+      document.getElementById("form_proporciones").classList.add("max-h-0", "opacity-0");
+      document.getElementById("form_proporciones").classList.remove("max-h-[1000px]", "opacity-100");
       document.getElementById("resultado_1").innerHTML = "";
     }
   </script>
+  <script type="module" src="js/navbar.js"></script>
 </body>
 
 </html>
