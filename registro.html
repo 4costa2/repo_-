@@ -10,30 +10,74 @@
 
 <body class="bg-zinc-900 text-slate-100 flex items-center justify-center h-screen">
 
-    <div class="bg-zinc-800  p-6 rounded-xl shadow-md border border-white">
-        <h1 class="text-2xl font-bold mb-4">Registrarse</h1>
-        <input id="email" class="border p-2 rounded w-full mb-3" placeholder="Ingrese su correo" type="email" required>
-        <input id="password" type="password" class="border p-2 rounded w-full mb-3" placeholder="Ingrese su contraseña"
-            required>
-        <input id="confirmPassword" type="password" class="border p-2 rounded w-full mb-3"
-            placeholder="Confirmar contraseña" required>
+    <div class="bg-zinc-800 p-6 rounded-xl shadow-md border border-white">
 
-        <button id="btnRegister"
-            class="w-full bg-slate-600 hover:bg-slate-700 text-white p-2 rounded transition-colors">
+        <h1 class="text-2xl font-bold mb-4">
+            Registrarse
+        </h1>
+
+        <!-- Username -->
+        <input
+            id="username"
+            class="border p-2 rounded w-full mb-3 text-slate-900"
+            placeholder="Ingrese su username"
+            type="text"
+            required
+        >
+
+        <!-- Email -->
+        <input
+            id="email"
+            class="border p-2 rounded w-full mb-3 text-slate-900"
+            placeholder="Ingrese su correo"
+            type="email"
+            required
+        >
+
+        <!-- Contraseña -->
+        <input
+            id="password"
+            type="password"
+            class="border p-2 rounded w-full mb-3 text-slate-900"
+            placeholder="Ingrese su contraseña"
+            required
+        >
+
+        <!-- Confirmar contraseña -->
+        <input
+            id="confirmPassword"
+            type="password"
+            class="border p-2 rounded w-full mb-3 text-slate-900"
+            placeholder="Confirmar contraseña"
+            required
+        >
+
+        <button
+            id="btnRegister"
+            class="w-full bg-slate-600 hover:bg-slate-700 text-white p-2 rounded transition-colors"
+        >
             Registrarse
         </button>
+
     </div>
 
     <script type="module">
+
         import { registro } from "./js/auth.js";
 
         const btnRegister = document.getElementById("btnRegister");
 
         btnRegister.addEventListener("click", async () => {
 
-            const email = document.getElementById("email").value;
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (!username || !email || !password || !confirmPassword) {
+                alert("Completá todos los campos");
+                return;
+            }
 
             if (password !== confirmPassword) {
                 alert("Las contraseñas no coinciden");
@@ -42,7 +86,11 @@
 
             try {
 
-                await registro(email, password);
+                await registro(
+                    username,
+                    email,
+                    password
+                );
 
                 alert("Usuario registrado correctamente");
 
@@ -55,7 +103,9 @@
             }
 
         });
+
     </script>
+
 </body>
 
 </html>

@@ -11,19 +11,52 @@
 <body class="bg-zinc-900 text-slate-100 flex items-center justify-center h-screen">
 
     <div class="bg-zinc-800 p-6 rounded-xl shadow-md border border-white">
-        <h1 class="text-2xl font-bold mb-4">Iniciar Sesión</h1>
-        <p class="text-sm mb-4 text-end">¿No tienes una cuenta? <a href="registro.html"
-                class="text-sky-500 hover:underline">Registrate aqui</a></p>
-        <input id="email" class="border p-2 rounded w-full mb-3 text-slate-900" placeholder="Ingrese su correo" type="email">
-        <input id="password" class="border p-2 rounded w-full mb-3 text-slate-900" placeholder="Ingrese su contraseña" type="password">
 
+        <h1 class="text-2xl font-bold mb-4">
+            Iniciar Sesión
+        </h1>
 
-        <button class="w-full bg-slate-600 hover:bg-slate-700 text-white p-2 rounded transition-colors" id="btnLogin">
+        <p class="text-sm mb-4 text-end">
+            ¿No tienes una cuenta?
+            <a href="registro.html" class="text-sky-500 hover:underline">
+                Registrate aqui
+            </a>
+        </p>
+
+        <!-- Username -->
+        <input
+            id="username"
+            class="border p-2 rounded w-full mb-3 text-slate-900"
+            placeholder="Ingrese su username"
+            type="text"
+        >
+
+        <!-- Email -->
+        <input
+            id="email"
+            class="border p-2 rounded w-full mb-3 text-slate-900"
+            placeholder="Ingrese su correo"
+            type="email"
+        >
+
+        <!-- Contraseña -->
+        <input
+            id="password"
+            class="border p-2 rounded w-full mb-3 text-slate-900"
+            placeholder="Ingrese su contraseña"
+            type="password"
+        >
+
+        <button
+            class="w-full bg-slate-600 hover:bg-slate-700 text-white p-2 rounded transition-colors"
+            id="btnLogin"
+        >
             Ingresar
         </button>
-    </div>
-    <script type="module">
 
+    </div>
+
+    <script type="module">
 
         import { login } from "./js/auth.js";
 
@@ -32,6 +65,7 @@
             try {
 
                 await login(
+                    username.value,
                     email.value,
                     password.value
                 );
@@ -47,6 +81,7 @@
         }
 
     </script>
+
 </body>
 
 </html>
