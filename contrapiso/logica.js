@@ -6,21 +6,21 @@ if (!localStorage.getItem("proporciones")) {
     localStorage.setItem(
         "proporciones",
         JSON.stringify({
-            arena: 4,
-            ripio: 4,
-            cemento: 2,
+            C_arena: 4,
+            C_ripio: 4,
+            C_cemento: 2,
         })
     );
 }
 
 function ajustarProporciones() {
-    let proporciones = {
-        arena: Number(document.getElementById("arena").value) || 4,
-        ripio: Number(document.getElementById("ripio").value) || 4,
-        cemento: Number(document.getElementById("cemento").value) || 2
+    let C_proporciones = {
+        C_arena: Number(document.getElementById("arena").value) || 4,
+        C_ripio: Number(document.getElementById("ripio").value) || 4,
+        C_cemento: Number(document.getElementById("cemento").value) || 2
     };
 
-    localStorage.setItem("proporciones", JSON.stringify(proporciones))  
+    localStorage.setItem("proporciones", JSON.stringify(C_proporciones))  
     
     mostrarProporcionesActuales()
 }
@@ -34,31 +34,31 @@ function calcularMateriales(
     TamanobolsaCemento,
     tamanoBaldes,
 ) {
-    let proporciones= JSON.parse(localStorage.getItem("proporciones"))
+    let C_proporciones= JSON.parse(localStorage.getItem("proporciones"))
     const volumen_con_perdida = volumen * 1.05;
     const sumaPartes =
-        proporciones.arena + proporciones.ripio + proporciones.cemento;
+        C_proporciones.C_arena + C_proporciones.C_ripio + C_proporciones.C_cemento;
 
-    const volumenes = {
-        arena: Math.ceil(
-            (proporciones.arena / sumaPartes) * volumen_con_perdida,
+    const C_volumenes = {
+        C_arena: Math.ceil(
+            (C_proporciones.C_arena / sumaPartes) * volumen_con_perdida,
         ),
-        ripio: Math.ceil(
-            (proporciones.ripio / sumaPartes) * volumen_con_perdida,
+        C_ripio: Math.ceil(
+            (C_proporciones.C_ripio / sumaPartes) * volumen_con_perdida,
         ),
     };
     const volumen_un_balde = tamanoBaldes / 1000; //el 1000 es para pasar a m3 los lts del balde 1m3 es aprox 1000 l
     const volumen_maquinada = sumaPartes * volumen_un_balde;
     const cantidad_maquinadas = volumen_con_perdida / volumen_maquinada;
-    const baldes_cemento_totales = cantidad_maquinadas * proporciones.cemento;
+    const baldes_cemento_totales = cantidad_maquinadas * C_proporciones.C_cemento;
     const baldes_por_bolsa = TamanobolsaCemento / tamanoBaldes;
     const bolsas_exactas = baldes_cemento_totales / baldes_por_bolsa;
     const bolsas_recomendadas = Math.ceil(bolsas_exactas);
 
-    const costos = {
-        arena: volumenes.arena * precios.arena,
-        ripio: volumenes.ripio * precios.ripio,
-        cemento: bolsas_recomendadas * precios.cemento,
+    const C_costos = {
+        C_arena: C_volumenes.C_arena * C_precios.C_arena,
+        C_ripio: C_volumenes.C_ripio * C_precios.C_ripio,
+        C_cemento: bolsas_recomendadas * C_precios.C_cemento,
     };
 
     const total = costos.arena + costos.ripio + costos.cemento;
@@ -93,10 +93,10 @@ function calculo_contrapiso(event) {
         let area = largo * ancho;
         let volumen = area * profundidad;
 
-        let precios = {
-            arena: Number(document.getElementById("precio_arena").value),
-            ripio: Number(document.getElementById("precio_ripio").value),
-            cemento: Number(document.getElementById("precio_cemento").value),
+        let C_precios = {
+            C_arena: Number(document.getElementById("precio_arena").value),
+            C_ripio: Number(document.getElementById("precio_ripio").value),
+            C_cemento: Number(document.getElementById("precio_cemento").value),
         };
 
         const resultado = calcularMateriales(

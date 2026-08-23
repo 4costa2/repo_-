@@ -6,16 +6,16 @@ if (!localStorage.getItem("proporcionesPared")) {
     localStorage.setItem(
         "proporcionesPared",
         JSON.stringify({
-            arena: 8,
-            cemento: 2.5,
+            P_arena: 8,
+            P_cemento: 2.5,
         }),
     );
 }
 
 function ajustarProporciones() {
     let proporcionesPared = {
-        arena: Number(document.getElementById("arena").value) || 8,
-        cemento: Number(document.getElementById("cemento").value) || 2.5,
+        P_arena: Number(document.getElementById("arena").value) || 8,
+        P_cemento: Number(document.getElementById("cemento").value) || 2.5,
     };
 
     localStorage.setItem(
@@ -31,30 +31,31 @@ function calcularMateriales(area, precios, TamanobolsaCemento, tamanoBaldes,tipo
         localStorage.getItem("proporcionesPared"),
     );
     // 1m2 de pared se necesita 1 maquinada
-    let cantidadBaldesArena = proporcionesPared.arena * area;
+    let cantidadBaldesArena = proporcionesPared.P_arena * area;
     let volumenBalde=tamanoBaldes/1000
     let volumenArena= cantidadBaldesArena*volumenBalde
 
     
 
 
-    const sumaPartes = proporciones.arena + proporciones.cemento;
+    const sumaPartes = proporciones.P_arena + proporciones.P_cemento;
 
     const volumen_un_balde = tamanoBaldes / 1000; //el 1000 es para pasar a m3 los lts del balde 1m3 es aprox 1000 l
     const volumen_maquinada = sumaPartes * volumen_un_balde;
     const cantidad_maquinadas = volumen_con_perdida / volumen_maquinada;
-    const baldes_cemento_totales = cantidad_maquinadas * proporciones.cemento;
+    const baldes_cemento_totales = cantidad_maquinadas * proporciones.P_cemento;
     const baldes_por_bolsa = TamanobolsaCemento / tamanoBaldes;
     const bolsas_exactas = baldes_cemento_totales / baldes_por_bolsa;
     const bolsas_recomendadas = Math.ceil(bolsas_exactas);
+    const cantidad_Ladrillos=area*55//55 es la cantidad promedio aproximada de ladrillos que entran en 1m2 de pared, igualmente 
 
     const costos = {
-        arena: volumenes.arena * precios.arena,
-        ladrillos: cantidad*precios.ladrillos,
-        cemento: bolsas_recomendadas * precios.cemento,
+        P_arena: volumenes.P_arena * precios.P_arena,
+        P_ladrillos: cantidad*precios.P_ladrillos,
+        P_cemento: bolsas_recomendadas * precios.P_cemento,
     };
 
-    const total = costos.arena + costos.ripio + costos.cemento;
+    const total = costos.P_arena + costos.P_ripio + costos.P_cemento;
 
     return { volumenes, bolsas_exactas, bolsas_recomendadas, costos, total };
 }
@@ -109,8 +110,8 @@ function calculo_contrapiso(event) {
         <div class="grid grid-cols-2 gap-2 text-zinc-300">
         <div><span class="text-zinc-500">Área: </span>${area.toFixed(2)} m²</div>
         <div><span class="text-zinc-500">Volumen:</span> ${volumen.toFixed(2)} m³</div>
-        <div><span class="text-zinc-500">Arena:</span> ${resultado.volumenes.arena} m³</div>
-        <div><span class="text-zinc-500">Ripio:</span> ${resultado.volumenes.ripio} m³</div>
+        <div><span class="text-zinc-500">Arena:</span> ${resultado.volumenes.P_arena} m³</div>
+        <div><span class="text-zinc-500">Ripio:</span> ${resultado.volumenes.P_ripio} m³</div>
         <div><span class="text-zinc-500">Cemento:</span> ${resultado.bolsas_recomendadas} bolsas</div>
         <div class="col-span-2 font-semibold text-emerald-400 pt-2 border-t border-zinc-700">Costo total: ${diferencia}</div>
         </div>
@@ -127,7 +128,6 @@ function mostrarProporciones() {
     if (propDiv.classList.contains("max-h-0")) {
         propDiv.classList.remove("max-h-0", "opacity-0");
         propDiv.classList.add("max-h-[1000px]", "opacity-100");
-        
     } else {
         propDiv.classList.add("max-h-0", "opacity-0");
         propDiv.classList.remove("max-h-[1000px]", "opacity-100");
