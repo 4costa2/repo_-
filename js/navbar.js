@@ -50,7 +50,7 @@ navbar.innerHTML = `
 
                 <!-- Menú Dropdown -->
                 <div id="calcDropdownMenu"
-                     class="dropdown-menu absolute left-0 sm:left-auto sm:right-0 mt-2 w-56 rounded-2xl bg-zinc-900/95 backdrop-blur-md border border-zinc-800 shadow-2xl p-2 hidden z-50 flex flex-col gap-1">
+                     class="dropdown-menu absolute left-0 sm:left-auto sm:right-0 mt-2 w-56 rounded-2xl bg-zinc-900/95 backdrop-blur-md border border-zinc-800 shadow-2xl p-2 hidden z-50 flex flex-col gap-1 before:content-[''] before:absolute before:-top-2 before:left-0 before:right-0 before:h-2">
                     
                     <a href="${base}contrapiso/contrapiso.html"
                        class="dropdown-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition no-underline group">
@@ -251,7 +251,25 @@ function toggleCalcDropdown(abrir) {
     }
 }
 
-if (btnCalcDropdown) {
+if (btnCalcDropdown && calcDropdownContainer) {
+    let dropdownTimeout = null;
+
+    // Abrir al pasar el mouse por encima
+    calcDropdownContainer.addEventListener("mouseenter", () => {
+        if (dropdownTimeout) {
+            clearTimeout(dropdownTimeout);
+            dropdownTimeout = null;
+        }
+        toggleCalcDropdown(true);
+    });
+
+    // Cerrar al salir el mouse con un pequeño retardo para evitar cierres bruscos
+    calcDropdownContainer.addEventListener("mouseleave", () => {
+        dropdownTimeout = setTimeout(() => {
+            toggleCalcDropdown(false);
+        }, 150);
+    });
+
     btnCalcDropdown.addEventListener("click", (e) => {
         e.stopPropagation();
         toggleCalcDropdown();
