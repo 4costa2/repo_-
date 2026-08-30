@@ -4,8 +4,9 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.8/fir
 
 const navbar = document.getElementById("navbar");
 
-const estaEnSubcarpeta = ["contrapiso", "techo", "pared"]
-    .some(carpeta => window.location.pathname.includes(`/${carpeta}/`));
+const estaEnSubcarpeta = ["contrapiso", "techo", "pared"].some((carpeta) =>
+    window.location.pathname.includes(`/${carpeta}/`),
+);
 
 const base = estaEnSubcarpeta ? "../" : "./";
 
@@ -82,6 +83,35 @@ navbar.innerHTML = `
                 </div>
             </div>
 
+            <!-- Dropdown Proporciones -->
+            <div class="relative dropdown" id="propsDropdownContainer">
+                <button id="btnPropsDropdown"
+                        type="button"
+                        aria-expanded="false"
+                        class="dropdown-toggle px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/70 transition flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-sky-500/50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Proporciones Materiales</span>
+                    <svg id="propsChevron" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-zinc-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Menú Dropdown Proporciones -->
+                <div id="propsDropdownMenu"
+                     class="dropdown-menu absolute left-0 sm:left-auto sm:right-0 mt-2 w-56 rounded-2xl bg-zinc-900/95 backdrop-blur-md border border-zinc-800 shadow-2xl p-2 hidden z-50 flex flex-col gap-1 before:content-[''] before:absolute before:-top-2 before:left-0 before:right-0 before:h-2">
+                    
+                    <a href="${base}contrapiso/proporcionesContrapiso.html"
+                       class="dropdown-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition no-underline group">
+                        <div>
+                            <p class="text-sm font-medium leading-none mb-1 text-zinc-200 group-hover:text-white">Contrapiso</p>
+                            <p class="text-[11px] text-zinc-500 leading-none">Ajustar mezcla</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </nav>
 
         <!-- Botón de Perfil -->
@@ -216,6 +246,7 @@ navbar.innerHTML = `
 
     </div>
 </div>
+
 `;
 
 // Elementos del Modal
@@ -291,6 +322,54 @@ if (btnCalcDropdown && calcDropdownContainer) {
     });
 }
 
+//LÓGICA DEL DROPDOWN DE PROPORCIONES 
+const btnPropsDropdown = document.getElementById("btnPropsDropdown");
+const propsDropdownMenu = document.getElementById("propsDropdownMenu");
+const propsDropdownContainer = document.getElementById("propsDropdownContainer");
+const propsChevron = document.getElementById("propsChevron");
+
+function togglePropsDropdown(abrir) {
+    const estaAbierto = !propsDropdownMenu.classList.contains("hidden");
+    const nuevoEstado = abrir !== undefined ? abrir : !estaAbierto;
+
+    if (nuevoEstado) {
+        propsDropdownMenu.classList.remove("hidden");
+        btnPropsDropdown.setAttribute("aria-expanded", "true");
+        propsChevron.classList.add("rotate-180");
+        // Cierra el menú de calculadoras si estaba abierto
+        if (typeof toggleCalcDropdown === 'function') toggleCalcDropdown(false);
+    } else {
+        propsDropdownMenu.classList.add("hidden");
+        btnPropsDropdown.setAttribute("aria-expanded", "false");
+        propsChevron.classList.remove("rotate-180");
+    }
+}
+
+if (btnPropsDropdown && propsDropdownContainer) {
+    let propsDropdownTimeout = null;
+
+    // abrir al pasar el mouse
+    propsDropdownContainer.addEventListener("mouseenter", () => {
+        if (propsDropdownTimeout) clearTimeout(propsDropdownTimeout);
+        togglePropsDropdown(true);
+    });
+
+    // cerrar al sacar el mouse 
+    propsDropdownContainer.addEventListener("mouseleave", () => {
+        propsDropdownTimeout = setTimeout(() => {
+            togglePropsDropdown(false);
+        }, 10);
+    });
+
+    btnPropsDropdown.addEventListener("click", (e) => {
+        e.stopPropagation();
+        togglePropsDropdown();
+    });
+}
+
+
+
+
 function cargarDatosUsuario(usuario) {
     if (!usuario) {
         navbarUserName.textContent = "Usuario";
@@ -299,9 +378,8 @@ function cargarDatosUsuario(usuario) {
         return;
     }
 
-    const nombre = usuario.displayName ||
-        usuario.email?.split("@")[0] ||
-        "Usuario";
+    const nombre =
+        usuario.displayName || usuario.email?.split("@")[0] || "Usuario";
 
     const correo = usuario.email || "No disponible";
 
