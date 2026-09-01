@@ -5,97 +5,240 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Cache-Control" content="no-store">
-  <title>Presupuesto contrapiso</title>
+  <title>Presupuesto Contrapiso - c.Calc</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="js/guard.js"></script>
   <script type="module" src="js/app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+  <style>
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeInScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
 </head>
 
-<body>
+<body class="bg-zinc-900 text-slate-100 font-sans min-h-screen">
   <div id="navbar"></div>
-  <script type="module" src="/js/navbar.js"></script>
-  <div class="bg-zinc-900 text-slate-100 font-sans min-h-screen py-10 px-4 sm:px-8 flex flex-col items-center">
-    <div
-      class="w-full max-w-xl bg-zinc-800/80 backdrop-blur-sm border border-zinc-700 rounded-2xl shadow-xl p-6 sm:p-8 space-y-6">
 
-
-      <!-- interfaz_rectángulo (Siempre desplegado por defecto) -->
-      <div id="form_rectangulo" class="formulario block space-y-6">
-        <form onsubmit="C_calculo_contrapiso(event)" class="space-y-4">
-
-          <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-700/60 space-y-3">
-            <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider">Calculo contrapiso de forma
-              Cuadrada o Rectángular</h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Tamaño balde (lts)</label>
-                <input type="number" id="tamanoBalde" step="any" required placeholder="8 lts"
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Tamaño bolsa de cemento (kg)</label>
-                <input type="number" id="tamanoBolsa" step="any" required placeholder="25 kg"
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Largo (m)</label>
-                <input type="number" id="largo" step="any" required placeholder="2 mts"
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Ancho (m)</label>
-                <input type="number" id="ancho" step="any" required placeholder="2 mts"
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Profundidad (cm)</label>
-                <input type="number" id="altura" step="any" required placeholder="10 cm"
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-zinc-900/50 p-4 rounded-xl border border-zinc-700/60 space-y-3">
-            <h3 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider">Costo de los materiales
-              (opcionales)</h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Precio m³ arena</label>
-                <input type="number" id="precio_arena" step="any" placeholder=" $ 1000 "
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Precio m³ ripio</label>
-                <input type="number" id="precio_ripio" step="any" placeholder=" $ 1000 "
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-              <div>
-                <label class="block text-xs text-zinc-400 mb-1">Precio bolsa cemento</label>
-                <input type="number" id="precio_cemento" step="any" placeholder=" $ 1000 "
-                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              </div>
-            </div>
-          </div>
-
-          <button type="submit"
-            class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg cursor-pointer">
-            Calcular Presupuesto
-          </button>
-          <div id="resultado_1"
-            class="mt-4 empty:hidden bg-zinc-900/80 border border-zinc-700 p-4 rounded-xl space-y-1 text-sm"></div>
-        </form>
-
+  <!-- Widget flotante llamativo en la orilla superior izquierda de la página -->
+  <aside class="fixed top-20 left-3 sm:left-6 z-30">
+    <div class="relative group">
+      <!-- Glow ambiental sutil -->
+      <div
+        class="absolute -inset-0.5 bg-sky-500/20 rounded-2xl blur opacity-50 group-hover:opacity-100 transition duration-300 pointer-events-none">
       </div>
 
-      </div> 
-  </div> 
+      <!-- Tarjeta flotante -->
+      <div
+        class="relative bg-zinc-950/90 border border-zinc-800 hover:border-sky-500/50 rounded-2xl p-3 sm:p-4 shadow-2xl backdrop-blur-xl transition-all duration-300 w-auto sm:w-52">
+        <div class="flex items-center justify-between gap-2 mb-2.5">
+          <div class="flex items-center gap-1.5">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+            </span>
+            <span
+              class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-sky-400">Proporciones</span>
+          </div>
+
+        </div>
+
+        <!-- Lista de materiales -->
+        <div class="space-y-1.5 text-xs">
+          <div
+            class="flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-xl bg-zinc-900/90 border border-zinc-800/80">
+            <span class="text-zinc-400 font-medium">Arena</span>
+            <span class="font-bold text-sky-400"><span id="arenaDato">4</span> <span
+                class="text-[10px] font-normal text-zinc-500">baldes</span></span>
+          </div>
+          <div
+            class="flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-xl bg-zinc-900/90 border border-zinc-800/80">
+            <span class="text-zinc-400 font-medium">Ripio</span>
+            <span class="font-bold text-sky-400"><span id="ripioDato">4</span> <span
+                class="text-[10px] font-normal text-zinc-500">baldes</span></span>
+          </div>
+          <div
+            class="flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-xl bg-zinc-900/90 border border-zinc-800/80">
+            <span class="text-zinc-400 font-medium">Cemento</span>
+            <span class="font-bold text-sky-400"><span id="cementoDato">2</span> <span
+                class="text-[10px] font-normal text-zinc-500">baldes</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="min-h-[calc(100vh-72px)] flex items-center justify-center px-4 py-8 sm:py-12">
+    <div class="w-full max-w-2xl">
+
+      <div
+        class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/60 p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
+
+        <!-- Luces ambientales -->
+        <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-sky-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-32 -left-24 w-80 h-80 rounded-full bg-slate-500/10 blur-3xl pointer-events-none">
+        </div>
+
+        <div class="relative space-y-6">
+
+          <!-- Encabezado con el botón Configurar como estaba antes -->
+          <header class="text-center sm:text-left">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <p class="text-sky-400 text-xs font-medium tracking-[0.25em] uppercase mb-1">
+                  Herramienta de cálculo
+                </p>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+                  Presupuesto <span class="text-sky-400">Contrapiso</span>
+                </h1>
+              </div>
+              <div>
+                <a href="proporcionesContrapiso.html"
+                  class="inline-flex items-center gap-1.5 text-xs text-sky-400 hover:text-sky-300 font-medium bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 px-3 py-1.5 rounded-xl transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Configurar proporciones</span>
+                </a>
+              </div>
+            </div>
+            <div class="w-12 h-1 bg-sky-500 rounded-full mt-3 mx-auto sm:mx-0"></div>
+            <p class="text-xs sm:text-sm text-zinc-400 mt-2">
+              Calcula los materiales y costos para contrapiso de forma cuadrada o rectangular.
+            </p>
+          </header>
+
+          <!-- Interfaz rectángulo -->
+          <div id="form_rectangulo" class="formulario block space-y-6">
+            <form onsubmit="C_calculo_contrapiso(event)" class="space-y-5">
+
+              <!-- Medidas y dimensiones -->
+              <div class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
+                <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                  Dimensiones y medidas del contrapiso
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                  <div>
+                    <label for="tamanoBalde" class="block text-xs font-medium text-zinc-400 mb-1.5">Tamaño balde
+                      (lts)</label>
+                    <input type="number" id="tamanoBalde" step="any" required placeholder="8 lts"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                  <div>
+                    <label for="tamanoBolsa" class="block text-xs font-medium text-zinc-400 mb-1.5">Bolsa cemento
+                      (kg)</label>
+                    <input type="number" id="tamanoBolsa" step="any" required placeholder="25 kg"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                  <div>
+                    <label for="largo" class="block text-xs font-medium text-zinc-400 mb-1.5">Largo (m)</label>
+                    <input type="number" id="largo" step="any" required placeholder="2 mts"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                  <div>
+                    <label for="ancho" class="block text-xs font-medium text-zinc-400 mb-1.5">Ancho (m)</label>
+                    <input type="number" id="ancho" step="any" required placeholder="2 mts"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                  <div>
+                    <label for="altura" class="block text-xs font-medium text-zinc-400 mb-1.5">Profundidad (cm)</label>
+                    <input type="number" id="altura" step="any" required placeholder="10 cm"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Costo de materiales -->
+              <div class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
+                <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                  Costo de los materiales (opcional)
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                  <div>
+                    <label for="precio_arena" class="block text-xs font-medium text-zinc-400 mb-1.5">Precio m³
+                      arena</label>
+                    <input type="number" id="precio_arena" step="any" placeholder="$ 1000"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                  <div>
+                    <label for="precio_ripio" class="block text-xs font-medium text-zinc-400 mb-1.5">Precio m³
+                      ripio</label>
+                    <input type="number" id="precio_ripio" step="any" placeholder="$ 1000"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                  <div>
+                    <label for="precio_cemento" class="block text-xs font-medium text-zinc-400 mb-1.5">Precio bolsa
+                      cemento</label>
+                    <input type="number" id="precio_cemento" step="any" placeholder="$ 1000"
+                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botones de acción: Calcular y Reiniciar -->
+              <div class="flex flex-col sm:flex-row items-center gap-3">
+                <button type="submit"
+                  class="w-full sm:flex-1 bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold py-3.5 px-6 rounded-xl transition duration-200 shadow-lg shadow-sky-500/20 cursor-pointer text-sm sm:text-base flex items-center justify-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  <span>Calcular Presupuesto</span>
+                </button>
+                <button type="button" onclick="C_reinicio()"
+                  class="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700/80 font-medium py-3.5 px-6 rounded-xl transition duration-200 cursor-pointer text-sm sm:text-base flex items-center justify-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span>Reiniciar</span>
+                </button>
+              </div>
+
+              <!-- Resultado (oculto inicialmente con class hidden) -->
+              <div id="resultado_1"
+                class="hidden mt-4 bg-zinc-900/90 border border-zinc-800 p-5 rounded-2xl space-y-2 text-sm shadow-inner">
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <p class="text-xs text-zinc-600">
+          c.Calc · Medir · Calcular · Planificar
+        </p>
+      </div>
+
+    </div>
+  </main>
+
   <script src="logica.js"></script>
+  <script type="module" src="/js/navbar.js"></script>
 </body>
 
 </html>

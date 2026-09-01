@@ -20,13 +20,12 @@ function C_ajustarProporciones() {
         C_cemento: Number(document.getElementById("cemento").value) || 2
     };
 
-    localStorage.setItem("C_proporciones", JSON.stringify(C_proporciones))  
-    
-    C_mostrarProporcionesActuales()
+    localStorage.setItem("C_proporciones", JSON.stringify(C_proporciones));
+    C_mostrarProporcionesActuales();
+
+    alert("Proporciones guardadas correctamente");
+    window.location.href = "contrapiso.html";
 }
-
-
-
 
 function C_calcularMateriales(
     C_volumen,
@@ -34,7 +33,7 @@ function C_calcularMateriales(
     C_TamanobolsaCemento,
     C_tamanoBaldes,
 ) {
-    let C_proporciones= JSON.parse(localStorage.getItem("C_proporciones"))
+    let C_proporciones = JSON.parse(localStorage.getItem("C_proporciones"));
     const C_volumen_con_perdida = C_volumen * 1.05;
     const C_sumaPartes =
         C_proporciones.C_arena + C_proporciones.C_ripio + C_proporciones.C_cemento;
@@ -108,21 +107,57 @@ function C_calculo_contrapiso(event) {
 
         let C_diferencia = null;
         if (C_resultado.C_total.toFixed(2) > 0) {
-            C_diferencia = `$ ${C_resultado.C_total}`;
+            C_diferencia = `$ ${C_resultado.C_total.toLocaleString('es-AR')}`;
         } else if (C_resultado.C_total.toFixed(2) == 0) {
-            C_diferencia = "No has ingresado el costo de ningun material";
+            C_diferencia = "No has ingresado costo de materiales";
         }
 
-        document.getElementById("resultado_1").innerHTML = `
-        <div class="grid grid-cols-2 gap-2 text-zinc-300">
-        <div><span class="text-zinc-500">Área: </span>${C_area.toFixed(2)} m²</div>
-        <div><span class="text-zinc-500">Volumen:</span> ${C_volumen.toFixed(2)} m³</div>
-        <div><span class="text-zinc-500">Arena:</span> ${C_resultado.C_volumenes.C_arena} m³</div>
-        <div><span class="text-zinc-500">Ripio:</span> ${C_resultado.C_volumenes.C_ripio} m³</div>
-        <div><span class="text-zinc-500">Cemento:</span> ${C_resultado.C_bolsas_recomendadas} bolsas</div>
-        <div class="col-span-2 font-semibold text-emerald-400 pt-2 border-t border-zinc-700">Costo total: ${C_diferencia}</div>
+        const resDiv = document.getElementById("resultado_1");
+        resDiv.innerHTML = `
+        <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                    <h3 class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-white">Resultado del Presupuesto</h3>
+                </div>
+                <span class="text-[11px] font-medium text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 rounded-full">Estimación</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-3">
+                    <span class="block text-[11px] font-medium text-zinc-500 uppercase tracking-wide">Área total</span>
+                    <span class="text-base sm:text-lg font-bold text-white">${C_area.toFixed(2)} <span class="text-xs font-normal text-zinc-400">m²</span></span>
+                </div>
+                <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-3">
+                    <span class="block text-[11px] font-medium text-zinc-500 uppercase tracking-wide">Volumen</span>
+                    <span class="text-base sm:text-lg font-bold text-white">${C_volumen.toFixed(2)} <span class="text-xs font-normal text-zinc-400">m³</span></span>
+                </div>
+                <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-3 col-span-2 sm:col-span-1">
+                    <span class="block text-[11px] font-medium text-zinc-500 uppercase tracking-wide">Bolsas Cemento</span>
+                    <span class="text-base sm:text-lg font-bold text-sky-400">${C_resultado.C_bolsas_recomendadas} <span class="text-xs font-normal text-zinc-400">bolsas</span></span>
+                </div>
+                <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-3">
+                    <span class="block text-[11px] font-medium text-zinc-500 uppercase tracking-wide">Arena necesaria</span>
+                    <span class="text-base sm:text-lg font-bold text-zinc-200">${C_resultado.C_volumenes.C_arena} <span class="text-xs font-normal text-zinc-400">m³</span></span>
+                </div>
+                <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-3">
+                    <span class="block text-[11px] font-medium text-zinc-500 uppercase tracking-wide">Ripio necesario</span>
+                    <span class="text-base sm:text-lg font-bold text-zinc-200">${C_resultado.C_volumenes.C_ripio} <span class="text-xs font-normal text-zinc-400">m³</span></span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3.5 rounded-xl bg-sky-500/10 border border-sky-500/20">
+                <span class="text-xs sm:text-sm font-medium text-zinc-300">Costo total estimado:</span>
+                <span class="text-base sm:text-lg font-bold text-sky-400">${C_diferencia}</span>
+            </div>
         </div>
         `;
+
+        resDiv.classList.remove("hidden");
+        resDiv.classList.remove("animate-fade-in");
+        void resDiv.offsetWidth; // Forzar reflow para reiniciar animación
+        resDiv.classList.add("animate-fade-in");
+
     } catch (error) {
         console.error("Error lógico:", error);
         alert(
@@ -130,6 +165,7 @@ function C_calculo_contrapiso(event) {
         );
     }
 }
+
 function C_mostrarProporciones() {
     const propDiv = document.getElementById("form_proporciones");
     if (propDiv.classList.contains("max-h-0")) {
@@ -141,26 +177,32 @@ function C_mostrarProporciones() {
     }
 }
 
-function C_mostrarProporcionesActuales(){
+function C_mostrarProporcionesActuales() {
     const C_proporciones = JSON.parse(localStorage.getItem("C_proporciones")) || {
         C_arena: 4,
         C_ripio: 4,
-        C_cemento:2
+        C_cemento: 2
     };
     if (document.getElementById("arenaDato")) {
-    document.getElementById("arenaDato").textContent = C_proporciones.C_arena
-    document.getElementById("ripioDato").textContent = C_proporciones.C_ripio
-    document.getElementById("cementoDato").textContent = C_proporciones.C_cemento
+        document.getElementById("arenaDato").textContent = C_proporciones.C_arena;
+        document.getElementById("ripioDato").textContent = C_proporciones.C_ripio;
+        document.getElementById("cementoDato").textContent = C_proporciones.C_cemento;
     }
 }
 
-function C_reinicio(){
-    document.getElementById("precio_arena").value=""
-    document.getElementById("precio_ripio").value=""
-    document.getElementById("precio_cemento").value=""
-    document.getElementById("tamanoBalde").value=""
-    document.getElementById("tamanoBolsa").value=""
-    document.getElementById("largo").value=""
-    document.getElementById("ancho").value=""
-    document.getElementById("altura").value=""
+function C_reinicio() {
+    document.getElementById("precio_arena").value = "";
+    document.getElementById("precio_ripio").value = "";
+    document.getElementById("precio_cemento").value = "";
+    document.getElementById("tamanoBalde").value = "";
+    document.getElementById("tamanoBolsa").value = "";
+    document.getElementById("largo").value = "";
+    document.getElementById("ancho").value = "";
+    document.getElementById("altura").value = "";
+
+    const resDiv = document.getElementById("resultado_1");
+    if (resDiv) {
+        resDiv.classList.add("hidden");
+        resDiv.innerHTML = "";
+    }
 }

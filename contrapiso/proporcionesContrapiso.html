@@ -1,142 +1,129 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="Cache-Control" content="no-store" />
-        <title>Configurar Proporciones</title>
 
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script type="module" src="js/guard.js"></script>
-        <script type="module" src="js/app.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <title>Configurar Proporciones - c.Calc</title>
 
-    <body>
-        <div id="navbar"></div>
-        <div
-            class="bg-zinc-900 text-slate-100 font-sans min-h-screen py-10 px-4 sm:px-8 flex flex-col items-center"
-        >
-            <div
-                class="w-full max-w-xl bg-zinc-800/80 backdrop-blur-sm border border-zinc-700 rounded-2xl shadow-xl p-6 sm:p-8 space-y-6"
-            >
-                <div
-                    class="rounded-2xl border border-zinc-700 bg-zinc-900 p-4 shadow-lg"
-                >
-                    <h2 class="mb-3 text-base font-semibold text-white">
-                        Proporciones actuales
-                    </h2>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="js/guard.js"></script>
+    <script type="module" src="js/app.js"></script>
+</head>
 
-                    <div class="grid grid-cols-3 gap-2">
-                        <div
-                            class="flex items-center justify-between rounded-lg bg-zinc-700/70 px-3 py-2"
-                        >
-                            <span class="text-xs text-white"
-                                >Baldes de arena</span
-                            >
-                            <span
-                                id="arenaDato"
-                                class="rounded-md bg-cyan-900/80 px-2 py-0.5 text-xs font-semibold text-cyan-300"
-                            ></span>
-                        </div>
+<body class="bg-zinc-900 text-slate-100 font-sans min-h-screen">
+    <div id="navbar"></div>
 
-                        <div
-                            class="flex items-center justify-between rounded-lg bg-zinc-700/70 px-3 py-2"
-                        >
-                            <span class="text-xs text-white"
-                                >Baldes de ripio</span
-                            >
-                            <span
-                                id="ripioDato"
-                                class="rounded-md bg-cyan-900/80 px-2 py-0.5 text-xs font-semibold text-cyan-300"
-                            ></span>
-                        </div>
+    <main class="min-h-[calc(100vh-72px)] flex items-center justify-center px-4 py-8 sm:py-12">
+        <div class="w-full max-w-xl">
 
-                        <div
-                            class="flex items-center justify-between rounded-lg bg-zinc-700/70 px-3 py-2"
-                        >
-                            <span class="text-xs text-white"
-                                >Baldes de cemento</span
-                            >
-                            <span
-                                id="cementoDato"
-                                class="rounded-md bg-cyan-900/80 px-2 py-0.5 text-xs font-semibold text-cyan-300"
-                            ></span>
-                        </div>
-                    </div>
-                </div>
+            <div class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/60 p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
 
-                <div
-                    id="form_proporciones"
-                    class="flex flex-col bg-zinc-900/50 p-4 rounded-xl border border-zinc-700/60 space-y-3 items-center justify-center transition-all duration-500"
-                >
-                    <h3
-                        class="text-sm font-semibold text-indigo-400 uppercase tracking-wider"
-                    >
-                        Configurar proporciones
-                    </h3>
+                <!-- Luces ambientales -->
+                <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-sky-500/10 blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-32 -left-24 w-80 h-80 rounded-full bg-slate-500/10 blur-3xl pointer-events-none"></div>
 
-                    <h5 class="text-xs text-gray-400 text-center">
-                        Las proporciones por defecto son arena 4 baldes, ripio 4
-                        baldes y cemento 2 baldes
-                    </h5>
+                <div class="relative space-y-6">
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-                        <div>
-                            <label class="block text-xs text-zinc-400 mb-1"
-                                >arena</label
-                            >
-                            <input
-                                type="number"
-                                id="arena"
-                                placeholder="4"
-                                class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            />
-                        </div>
+                    <!-- Encabezado -->
+                    <header class="text-center sm:text-left">
+                        <p class="text-sky-400 text-xs font-medium tracking-[0.25em] uppercase mb-1">
+                            Contrapiso
+                        </p>
+                        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+                            Configurar <span class="text-sky-400">Proporciones</span>
+                        </h1>
+                        <div class="w-12 h-1 bg-sky-500 rounded-full mt-3 mx-auto sm:mx-0"></div>
+                    </header>
 
-                        <div>
-                            <label class="block text-xs text-zinc-400 mb-1"
-                                >ripio</label
-                            >
-                            <input
-                                type="number"
-                                id="ripio"
-                                placeholder="4"
-                                class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            />
-                        </div>
+                    <!-- Proporciones actuales -->
+                    <div class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-3">
+                        <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                            Proporciones actuales
+                        </h2>
 
-                        <div>
-                            <label class="block text-xs text-zinc-400 mb-1"
-                                >cemento</label
-                            >
-                            <input
-                                type="number"
-                                id="cemento"
-                                placeholder="2"
-                                class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            />
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                            <div class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
+                                <span class="text-xs text-zinc-300">Arena</span>
+                                <span id="arenaDato" class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400"></span>
+                            </div>
+
+                            <div class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
+                                <span class="text-xs text-zinc-300">Ripio</span>
+                                <span id="ripioDato" class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400"></span>
+                            </div>
+
+                            <div class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
+                                <span class="text-xs text-zinc-300">Cemento</span>
+                                <span id="cementoDato" class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400"></span>
+                            </div>
                         </div>
                     </div>
 
-                    <button
-                        onclick="C_ajustarProporciones()"
-                        class="w-full sm:w-80 bg-cyan-600 hover:bg-cyan-800 text-white font-medium py-3 rounded-xl transition-all shadow-lg cursor-pointer mt-2"
-                    >
-                        Cambiar Proporciones
-                    </button>
+                    <!-- Formulario de proporciones -->
+                    <div id="form_proporciones" class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
+                        <div>
+                            <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                                Nuevas proporciones de mezcla
+                            </h2>
+                            <p class="text-xs text-zinc-400 mt-1">
+                                Las proporciones estándar son 4 baldes de arena, 4 de ripio y 2 de cemento.
+                            </p>
+                        </div>
 
-                    <a
-                        href="contrapiso.html"
-                        class="text-sm text-zinc-400 hover:text-white mt-4 transition-colors"
-                    >
-                        Volver a la calculadora de Contrapiso
-                    </a>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                            <div>
+                                <label for="arena" class="block text-xs font-medium text-zinc-400 mb-1.5">Arena (baldes)</label>
+                                <input type="number" id="arena" placeholder="4"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                            </div>
+
+                            <div>
+                                <label for="ripio" class="block text-xs font-medium text-zinc-400 mb-1.5">Ripio (baldes)</label>
+                                <input type="number" id="ripio" placeholder="4"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                            </div>
+
+                            <div>
+                                <label for="cemento" class="block text-xs font-medium text-zinc-400 mb-1.5">Cemento (baldes)</label>
+                                <input type="number" id="cemento" placeholder="2"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                            </div>
+                        </div>
+
+                        <button onclick="C_ajustarProporciones()"
+                            class="w-full bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold py-3.5 rounded-xl transition duration-200 shadow-lg shadow-sky-500/20 cursor-pointer text-sm sm:text-base mt-2">
+                            Guardar Nuevas Proporciones
+                        </button>
+                    </div>
+
+                    <div class="text-center pt-2">
+                        <a href="contrapiso.html"
+                            class="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-sky-400 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            <span>Volver a la calculadora de Contrapiso</span>
+                        </a>
+                    </div>
+
                 </div>
             </div>
-        </div>
 
-        <script src="logica.js"></script>
-        <script type="module" src="/js/navbar.js"></script>
-    </body>
+            <div class="text-center mt-6">
+                <p class="text-xs text-zinc-600">
+                    c.Calc · Medir · Calcular · Planificar
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="logica.js"></script>
+    <script type="module" src="/js/navbar.js"></script>
+</body>
+
 </html>

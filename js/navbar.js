@@ -18,7 +18,7 @@ navbar.innerHTML = `
         <a href="${base}home.html" class="flex items-center gap-2.5 group no-underline text-white">
             
             <span class="text-lg font-bold tracking-tight group-hover:text-sky-400 transition">
-                Constru<span class="text-sky-400">Calc</span>
+                <span class="text-sky-400">c.</span>Calc
             </span>
         </a>
 
