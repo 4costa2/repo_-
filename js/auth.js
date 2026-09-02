@@ -1,4 +1,5 @@
 import { auth } from "./firebase.js";
+import { supabase } from "./supabase.js";
 
 import {
     signInWithEmailAndPassword,
@@ -26,6 +27,12 @@ export async function login(username, email, contraseña) {
         throw new Error("El username no coincide con el usuario");
     }
 
+    await supabase.from("usuarios").upsert({
+        firebase_uid: user.uid,
+        nombre: user.displayName || username,
+        email: user.email
+    });
+
     return credential;
 }
 
@@ -43,8 +50,22 @@ export async function registro(username, email, contraseña) {
         displayName: username
     });
 
+    // Cuando se registra en Firebase, lo registramos en Supabase también
+    const { error } = await supabase.from("usuarios").insert({
+        firebase_uid: credential.user.uid,
+        nombre: username,
+        email: email
+    });
+
+    if (error) {
+        console.error("Error al guardar en Supabase:", error);
+    }
+
     return credential;
+
+
 }
+
 
 
 export async function logout() {
