@@ -11,58 +11,105 @@
     <script type="module" src="js/app.js"></script>
 </head>
 
-<body class="bg-zinc-900 text-slate-100 font-sans">
+<body class="bg-zinc-900 text-slate-100 font-sans min-h-screen">
     <div id="navbar"></div>
 
-    <main class="min-h-[calc(100vh-72px)] flex items-center justify-center px-4 py-10">
-        <section class="w-full max-w-5xl">
+    <main class="min-h-[calc(100vh-72px)] flex flex-col items-center px-4 py-10">
+        <div class="w-full max-w-5xl space-y-12">
 
-            <div
-                class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/60 px-6 py-12 sm:px-10 sm:py-14 shadow-2xl">
+            <!-- TARJETA ORIGINAL DE BIENVENIDA -->
+            <section class="w-full">
+                <div
+                    class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/60 px-6 py-12 sm:px-10 sm:py-14 shadow-2xl">
 
-                <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-sky-500/5 blur-3xl"></div>
-                <div class="absolute -bottom-32 -left-24 w-80 h-80 rounded-full bg-slate-500/5 blur-3xl"></div>
+                    <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-sky-500/5 blur-3xl pointer-events-none"></div>
+                    <div class="absolute -bottom-32 -left-24 w-80 h-80 rounded-full bg-slate-500/5 blur-3xl pointer-events-none"></div>
 
-                <div class="relative max-w-3xl mx-auto text-center">
+                    <div class="relative max-w-3xl mx-auto text-center">
 
-                    <p class="text-sky-400 text-sm font-medium tracking-[0.25em] uppercase mb-4">
-                        Herramienta de cálculo
+                        <p class="text-sky-400 text-sm font-medium tracking-[0.25em] uppercase mb-4">
+                            Herramienta de cálculo
+                        </p>
+
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-2">
+                            Bienvenido a <span class="text-sky-400">c.Calc</span>
+                        </h1>
+
+                        <!-- Saludo personalizado -->
+                        <p class="text-lg sm:text-xl text-zinc-400 font-medium mb-5">
+                            ¡Hola, <span id="nombreUsuarioHero" class="text-sky-400"></span>! 👋
+                        </p>
+
+                        <div class="w-14 h-1 bg-sky-500 rounded-full mx-auto mb-7"></div>
+
+                        <p class="text-lg sm:text-xl text-zinc-300 leading-relaxed">
+                            Una aplicación creada para facilitar la estimación de materiales necesarios en diferentes
+                            trabajos de construcción.
+                        </p>
+
+                        <p class="mt-4 text-base sm:text-lg text-zinc-500 leading-relaxed max-w-2xl mx-auto">
+                            A partir de las medidas ingresadas, podrás realizar cálculos de manera rápida y sencilla para
+                            obtener una referencia de las cantidades de materiales necesarias.
+                        </p>
+
+                        <div class="flex items-center justify-center gap-3 mt-10">
+                            <span class="w-10 h-px bg-zinc-700"></span>
+                            <span class="text-zinc-600 text-xs uppercase tracking-widest">
+                                Medir · Calcular · Planificar
+                            </span>
+                            <span class="w-10 h-px bg-zinc-700"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-center mt-6">
+                    <p class="text-sm text-zinc-600">
+                        Una forma simple de transformar las medidas de un proyecto en estimaciones útiles.
                     </p>
+                </div>
+            </section>
 
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6">
-                        Bienvenido a <span class="text-sky-400">c.Calc</span>
-                    </h1>
-
-                    <div class="w-14 h-1 bg-sky-500 rounded-full mx-auto mb-7"></div>
-
-                    <p class="text-lg sm:text-xl text-zinc-300 leading-relaxed">
-                        Una aplicación creada para facilitar la estimación de materiales necesarios en diferentes
-                        trabajos de construcción.
-                    </p>
-
-                    <p class="mt-4 text-base sm:text-lg text-zinc-500 leading-relaxed max-w-2xl mx-auto">
-                        A partir de las medidas ingresadas, podrás realizar cálculos de manera rápida y sencilla para
-                        obtener una referencia de las cantidades de materiales necesarias.
-                    </p>
-
-                    <div class="flex items-center justify-center gap-3 mt-10">
-                        <span class="w-10 h-px bg-zinc-700"></span>
-                        <span class="text-zinc-600 text-xs uppercase tracking-widest">
-                            Medir · Calcular · Planificar
-                        </span>
-                        <span class="w-10 h-px bg-zinc-700"></span>
+            <!-- SECCIÓN DASHBOARD: PRESUPUESTOS GUARDADOS -->
+            <section class="w-full pt-4">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-2.5 h-6 bg-sky-500 rounded-full"></div>
+                        <div>
+                            <div class="flex items-center gap-2.5">
+                                <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                                    Mis Presupuestos Guardados
+                                </h2>
+                                <span id="contadorPresupuestos"
+                                    class="text-xs font-semibold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 rounded-full">
+                                    0 guardados
+                                </span>
+                            </div>
+                            <p class="text-xs text-zinc-400 mt-0.5">Historial de cálculos guardados en la nube</p>
+                        </div>
                     </div>
 
+                    <button id="btnRecargar"
+                        class="text-xs bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white px-3.5 py-2 rounded-xl border border-zinc-800 hover:border-zinc-700 transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        <span>Actualizar</span>
+                    </button>
                 </div>
-            </div>
 
-            <div class="text-center mt-6">
-                <p class="text-sm text-zinc-600">
-                    Una forma simple de transformar las medidas de un proyecto en estimaciones útiles.
-                </p>
-            </div>
+                <!-- Contenedor donde se insertan las tarjetas con JS -->
+                <div id="contenedorPresupuestos" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Estado inicial cargando -->
+                    <div class="col-span-full text-center py-12 bg-zinc-950/40 border border-zinc-800/80 rounded-2xl">
+                        <p class="text-sm text-zinc-500">Cargando presupuestos...</p>
+                    </div>
+                </div>
+            </section>
 
-        </section>
+        </div>
     </main>
 
     <script type="module" src="js/navbar.js"></script>

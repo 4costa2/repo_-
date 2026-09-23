@@ -1,3 +1,8 @@
+import { supabase } from "/js/supabase.js";
+import { auth } from "/js/firebase.js";
+
+let ultimoCalculo = null;
+
 document.addEventListener("DOMContentLoaded", () => {
     C_mostrarProporcionesActuales();
 });
@@ -112,6 +117,26 @@ function C_calculo_contrapiso(event) {
             C_diferencia = "No has ingresado costo de materiales";
         }
 
+        //Json
+        ultimoCalculo = {
+            tipo: "contrapiso",
+            titulo: `Contrapiso ${C_area.toFixed(1)} m² (${C_largo}x${C_ancho}m)`,
+            medidas: {
+                largo: C_largo,
+                ancho: C_ancho,
+                espesor_cm: Number(document.getElementById("altura").value),
+                area_m2: Number(C_area.toFixed(2)),
+                volumen_m3: Number(C_volumen.toFixed(2))
+            },
+            materiales: {
+                cemento_bolsas: C_resultado.C_bolsas_recomendadas,
+                arena_m3: C_resultado.C_volumenes.C_arena,
+                ripio_m3: C_resultado.C_volumenes.C_ripio
+            },
+            costo_total: Number(C_resultado.C_total.toFixed(2)) || 0
+        };
+
+
         const resDiv = document.getElementById("resultado_1");
         resDiv.innerHTML = `
         <div class="space-y-4">
@@ -150,6 +175,16 @@ function C_calculo_contrapiso(event) {
                 <span class="text-xs sm:text-sm font-medium text-zinc-300">Costo total estimado:</span>
                 <span class="text-base sm:text-lg font-bold text-sky-400">${C_diferencia}</span>
             </div>
+
+
+             <!-- Botón Guardar en Supabase -->
+            <button type="button" onclick="C_guardarPresupuesto()" id="btnGuardarPresupuesto"
+                class="w-full mt-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold py-3 px-4 rounded-xl transition duration-200 shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 cursor-pointer text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                </svg>
+                <span>Guardar Presupuesto</span>
+            </button>
         </div>
         `;
 
@@ -206,3 +241,71 @@ function C_reinicio() {
         resDiv.innerHTML = "";
     }
 }
+
+
+//insert de datos en supabase
+async function C_guardarPresupuesto() {
+    if (!ultimoCalculo) {
+        alert("Primero realiza un cálculo.");
+        return;
+    }
+
+    const usuario = auth.currentUser;
+    if (!usuario) {
+        alert("Debes iniciar sesión para guardar presupuestos.");
+        return;
+    }
+
+    const titulo = prompt("Nombre o referencia para este presupuesto:", ultimoCalculo.titulo);
+    if (titulo === null) return; // Si canceló
+
+    const btn = document.getElementById("btnGuardarPresupuesto");
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span>Guardando...</span>`;
+    }
+
+    const { data, error } = await supabase.from("presupuestos").insert({
+        firebase_uid: usuario.uid,
+        tipo: "contrapiso",
+        titulo: titulo.trim() || ultimoCalculo.titulo,
+        medidas: ultimoCalculo.medidas,
+        materiales: ultimoCalculo.materiales,
+        costo_total: ultimoCalculo.costo_total
+    });
+
+    if (error) {
+        console.error("Error al guardar presupuesto:", error);
+        alert("Error al guardar en Supabase: " + error.message);
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `<span>Reintentar Guardar</span>`;
+        }
+        return;
+    }
+
+    if (btn) {
+        btn.classList.remove("bg-emerald-500", "hover:bg-emerald-400");
+        btn.classList.add("bg-zinc-800", "text-emerald-400", "border", "border-emerald-500/30");
+        btn.innerHTML = `<span>✓ Guardado con éxito</span>`;
+
+        // Mostrar enlace opcional para ir al Home si el usuario desea
+        let linkHome = document.getElementById("linkIrAlHome");
+        if (!linkHome && btn.parentNode) {
+            linkHome = document.createElement("a");
+            linkHome.id = "linkIrAlHome";
+            linkHome.href = "/home.html";
+            linkHome.className = "block text-center text-xs text-sky-400 hover:text-sky-300 font-medium hover:underline mt-2.5 transition";
+            linkHome.innerHTML = "Ver en Mis Presupuestos Guardados →";
+            btn.parentNode.appendChild(linkHome);
+        }
+    }
+}
+
+// Exponer las funciones para que los onclick de HTML sigan funcionando
+window.C_calculo_contrapiso = C_calculo_contrapiso;
+window.C_reinicio = C_reinicio;
+window.C_mostrarProporciones = C_mostrarProporciones;
+window.C_mostrarProporcionesActuales = C_mostrarProporcionesActuales;
+window.C_ajustarProporciones = C_ajustarProporciones;
+window.C_guardarPresupuesto = C_guardarPresupuesto;
