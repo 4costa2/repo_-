@@ -10,9 +10,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="/js/guard.js"></script>
   <script type="module" src="js/app.js"></script>
-//holaaaaa
+  //holaaaaa
   <style>
-    
     @keyframes fadeInScale {
       from {
         opacity: 0;
@@ -78,6 +77,18 @@
             <span class="font-bold text-sky-400"><span id="cementoDato">2</span> <span
                 class="text-[10px] font-normal text-zinc-500">baldes</span></span>
           </div>
+          <div
+            class="flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-xl bg-zinc-900/90 border border-zinc-800/80">
+            <span class="text-zinc-400 font-medium">Balde</span>
+            <span class="font-bold text-sky-400"><span id="baldeDato">8</span> <span
+                class="text-[10px] font-normal text-zinc-500">litros</span></span>
+          </div>
+          <div
+            class="flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-xl bg-zinc-900/90 border border-zinc-800/80">
+            <span class="text-zinc-400 font-medium">Bolsa</span>
+            <span class="font-bold text-sky-400"><span id="bolsaDato">25</span> <span
+                class="text-[10px] font-normal text-zinc-500">kilos</span></span>
+          </div>
         </div>
       </div>
     </div>
@@ -135,21 +146,10 @@
               <div class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
                 <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-                  Dimensiones y medidas de los baldes para hacer la maquinada teniendo de referencia una maquina de 150 lts promedio
+                  Dimensiones del contrapiso
                 </h2>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                  <div>
-                    <label for="tamanoBalde" class="block text-xs font-medium text-zinc-400 mb-1.5">Tamaño balde</label>
-                    <input type="number" id="tamanoBalde" step="any" required placeholder="8 kg/lts"
-                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
-                  </div>
-                  <div>
-                    <label for="tamanoBolsa" class="block text-xs font-medium text-zinc-400 mb-1.5">Peso bolsa cemento
-                      (kg)</label>
-                    <input type="number" id="tamanoBolsa" step="any" required placeholder="25 kg"
-                      class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
-                  </div>
                   <div>
                     <label for="largo" class="block text-xs font-medium text-zinc-400 mb-1.5">Largo (m)</label>
                     <input type="number" id="largo" step="any" required placeholder="2 mts"

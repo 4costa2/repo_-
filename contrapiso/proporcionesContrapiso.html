@@ -18,11 +18,16 @@
     <main class="min-h-[calc(100vh-72px)] flex items-center justify-center px-4 py-8 sm:py-12">
         <div class="w-full max-w-xl">
 
-            <div class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/60 p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
+            <div
+                class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/60 p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
 
                 <!-- Luces ambientales -->
-                <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-sky-500/10 blur-3xl pointer-events-none"></div>
-                <div class="absolute -bottom-32 -left-24 w-80 h-80 rounded-full bg-slate-500/10 blur-3xl pointer-events-none"></div>
+                <div
+                    class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-sky-500/10 blur-3xl pointer-events-none">
+                </div>
+                <div
+                    class="absolute -bottom-32 -left-24 w-80 h-80 rounded-full bg-slate-500/10 blur-3xl pointer-events-none">
+                </div>
 
                 <div class="relative space-y-6">
 
@@ -44,28 +49,60 @@
                             Proporciones actuales
                         </h2>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                            <div class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                            <div
+                                class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
                                 <span class="text-xs text-zinc-300">Arena</span>
-                                <span id="arenaDato" class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400"></span>
+                                <span
+                                    class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 text-xs font-semibold text-sky-400"><span
+                                        id="arenaDato"></span> <span
+                                        class="text-[10px] font-normal text-zinc-500">baldes</span></span>
                             </div>
 
-                            <div class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
+                            <div
+                                class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
                                 <span class="text-xs text-zinc-300">Ripio</span>
-                                <span id="ripioDato" class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400"></span>
+                                <span
+                                    class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 text-xs font-semibold text-sky-400"><span
+                                        id="ripioDato"></span> <span
+                                        class="text-[10px] font-normal text-zinc-500">baldes</span></span>
                             </div>
 
-                            <div class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
+                            <div
+                                class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
                                 <span class="text-xs text-zinc-300">Cemento</span>
-                                <span id="cementoDato" class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 text-xs font-semibold text-sky-400"></span>
+                                <span
+                                    class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 text-xs font-semibold text-sky-400"><span
+                                        id="cementoDato"></span> <span
+                                        class="text-[10px] font-normal text-zinc-500">baldes</span></span>
+                            </div>
+
+                            <div
+                                class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5">
+                                <span class="text-xs text-zinc-300">Tamaño balde</span>
+                                <span
+                                    class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 text-xs font-semibold text-sky-400"><span
+                                        id="baldeDato"></span> <span
+                                        class="text-[10px] font-normal text-zinc-500">lts</span></span>
+                            </div>
+
+                            <div
+                                class="flex items-center justify-between rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 col-span-2 sm:col-span-2">
+                                <span class="text-xs text-zinc-300">Bolsa cemento</span>
+                                <span
+                                    class="rounded-lg bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 text-xs font-semibold text-sky-400"><span
+                                        id="bolsaDato"></span> <span
+                                        class="text-[10px] font-normal text-zinc-500">kg</span></span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Formulario de proporciones -->
-                    <div id="form_proporciones" class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
+                    <div id="form_proporciones"
+                        class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
                         <div>
-                            <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+                            <h2
+                                class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
                                 <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
                                 Nuevas proporciones de mezcla
                             </h2>
@@ -76,21 +113,50 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                             <div>
-                                <label for="arena" class="block text-xs font-medium text-zinc-400 mb-1.5">Arena (baldes)</label>
+                                <label for="arena" class="block text-xs font-medium text-zinc-400 mb-1.5">Arena
+                                    (baldes)</label>
                                 <input type="number" id="arena" placeholder="4"
                                     class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
                             </div>
 
                             <div>
-                                <label for="ripio" class="block text-xs font-medium text-zinc-400 mb-1.5">Ripio (baldes)</label>
+                                <label for="ripio" class="block text-xs font-medium text-zinc-400 mb-1.5">Ripio
+                                    (baldes)</label>
                                 <input type="number" id="ripio" placeholder="4"
                                     class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
                             </div>
 
                             <div>
-                                <label for="cemento" class="block text-xs font-medium text-zinc-400 mb-1.5">Cemento (baldes)</label>
+                                <label for="cemento" class="block text-xs font-medium text-zinc-400 mb-1.5">Cemento
+                                    (baldes)</label>
                                 <input type="number" id="cemento" placeholder="2"
                                     class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Configuración de balde y bolsa mediante select -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-3 border-t border-zinc-800/80">
+                            <div>
+                                <label for="tamanoBalde" class="block text-xs font-medium text-zinc-400 mb-1.5">Tamaño
+                                    balde (lts)</label>
+                                <select id="tamanoBalde"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm cursor-pointer">
+                                    <option value="8">8 litros (Estándar)</option>
+                                    <option value="10">10 litros (Común)</option>
+                                    <option value="12">12 litros</option>
+                                    <option value="15">15 litros</option>
+
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="tamanoBolsa" class="block text-xs font-medium text-zinc-400 mb-1.5">Bolsa
+                                    cemento (kg)</label>
+                                <select id="tamanoBolsa"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm cursor-pointer">
+                                    <option value="25">25 kg (Bolsa chica)</option>
+                                    <option value="50">50 kg (Bolsa estándar)</option>
+                                </select>
                             </div>
                         </div>
 
@@ -103,8 +169,10 @@
                     <div class="text-center pt-2">
                         <a href="contrapiso.html"
                             class="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-sky-400 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                             </svg>
                             <span>Volver a la calculadora de Contrapiso</span>
                         </a>
@@ -122,7 +190,7 @@
         </div>
     </main>
 
-    <script src="logica.js"></script>
+    <script src="logica.js" type="module"></script>
     <script type="module" src="/js/navbar.js"></script>
 </body>
 

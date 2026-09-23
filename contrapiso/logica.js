@@ -14,21 +14,33 @@ if (!localStorage.getItem("C_proporciones")) {
             C_arena: 4,
             C_ripio: 4,
             C_cemento: 2,
+            C_tamanoBalde: 8,
+            C_tamanoBolsa: 25,
         })
     );
 }
 
 function C_ajustarProporciones() {
+    const guardadas = JSON.parse(localStorage.getItem("C_proporciones")) || {};
+
+    const arenaEl = document.getElementById("arena");
+    const ripioEl = document.getElementById("ripio");
+    const cementoEl = document.getElementById("cemento");
+    const baldeEl = document.getElementById("tamanoBalde");
+    const bolsaEl = document.getElementById("tamanoBolsa");
+
     let C_proporciones = {
-        C_arena: Number(document.getElementById("arena").value) || 4,
-        C_ripio: Number(document.getElementById("ripio").value) || 4,
-        C_cemento: Number(document.getElementById("cemento").value) || 2
+        C_arena: arenaEl && arenaEl.value !== "" ? Number(arenaEl.value) : (guardadas.C_arena ?? 4),
+        C_ripio: ripioEl && ripioEl.value !== "" ? Number(ripioEl.value) : (guardadas.C_ripio ?? 4),
+        C_cemento: cementoEl && cementoEl.value !== "" ? Number(cementoEl.value) : (guardadas.C_cemento ?? 2),
+        C_tamanoBalde: baldeEl ? Number(baldeEl.value) : (guardadas.C_tamanoBalde ?? 8),
+        C_tamanoBolsa: bolsaEl ? Number(bolsaEl.value) : (guardadas.C_tamanoBolsa ?? 25),
     };
 
     localStorage.setItem("C_proporciones", JSON.stringify(C_proporciones));
     C_mostrarProporcionesActuales();
 
-    alert("Proporciones guardadas correctamente");
+    alert("Proporciones y configuración guardadas correctamente");
     window.location.href = "contrapiso.html";
 }
 
@@ -85,10 +97,12 @@ function C_calculo_contrapiso(event) {
             }
             return elemento.value ? Number(elemento.value) : valorPorDefecto;
         };
-        let C_TamanobolsaCemento = Number(
-            document.getElementById("tamanoBolsa").value,
-        );
-        let C_tamanoBaldes = Number(document.getElementById("tamanoBalde").value);
+        const C_proporciones = JSON.parse(localStorage.getItem("C_proporciones")) || {
+            C_tamanoBalde: 8,
+            C_tamanoBolsa: 25,
+        };
+        let C_TamanobolsaCemento = C_proporciones.C_tamanoBolsa ?? 25;
+        let C_tamanoBaldes = C_proporciones.C_tamanoBalde ?? 8;
         let C_largo = Number(document.getElementById("largo").value);
         let C_ancho = Number(document.getElementById("ancho").value);
         let C_profundidad = Number(document.getElementById("altura").value) / 100;
@@ -216,21 +230,45 @@ function C_mostrarProporcionesActuales() {
     const C_proporciones = JSON.parse(localStorage.getItem("C_proporciones")) || {
         C_arena: 4,
         C_ripio: 4,
-        C_cemento: 2
+        C_cemento: 2,
+        C_tamanoBalde: 8,
+        C_tamanoBolsa: 25
     };
+
     if (document.getElementById("arenaDato")) {
-        document.getElementById("arenaDato").textContent = C_proporciones.C_arena;
-        document.getElementById("ripioDato").textContent = C_proporciones.C_ripio;
-        document.getElementById("cementoDato").textContent = C_proporciones.C_cemento;
+        document.getElementById("arenaDato").textContent = C_proporciones.C_arena ?? 4;
     }
+    if (document.getElementById("ripioDato")) {
+        document.getElementById("ripioDato").textContent = C_proporciones.C_ripio ?? 4;
+    }
+    if (document.getElementById("cementoDato")) {
+        document.getElementById("cementoDato").textContent = C_proporciones.C_cemento ?? 2;
+    }
+    if (document.getElementById("baldeDato")) {
+        document.getElementById("baldeDato").textContent = C_proporciones.C_tamanoBalde ?? 8;
+    }
+    if (document.getElementById("bolsaDato")) {
+        document.getElementById("bolsaDato").textContent = C_proporciones.C_tamanoBolsa ?? 25;
+    }
+
+    // Pre-cargar inputs y selects si están en la vista actual
+    const arenaEl = document.getElementById("arena");
+    const ripioEl = document.getElementById("ripio");
+    const cementoEl = document.getElementById("cemento");
+    const baldeEl = document.getElementById("tamanoBalde");
+    const bolsaEl = document.getElementById("tamanoBolsa");
+
+    if (arenaEl && !arenaEl.value) arenaEl.value = C_proporciones.C_arena ?? 4;
+    if (ripioEl && !ripioEl.value) ripioEl.value = C_proporciones.C_ripio ?? 4;
+    if (cementoEl && !cementoEl.value) cementoEl.value = C_proporciones.C_cemento ?? 2;
+    if (baldeEl) baldeEl.value = C_proporciones.C_tamanoBalde ?? 8;
+    if (bolsaEl) bolsaEl.value = C_proporciones.C_tamanoBolsa ?? 25;
 }
 
 function C_reinicio() {
     document.getElementById("precio_arena").value = "";
     document.getElementById("precio_ripio").value = "";
     document.getElementById("precio_cemento").value = "";
-    document.getElementById("tamanoBalde").value = "";
-    document.getElementById("tamanoBolsa").value = "";
     document.getElementById("largo").value = "";
     document.getElementById("ancho").value = "";
     document.getElementById("altura").value = "";
