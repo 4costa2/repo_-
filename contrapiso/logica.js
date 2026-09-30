@@ -5,7 +5,14 @@ let ultimoCalculo = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     C_mostrarProporcionesActuales();
+    C_inicializarTarjetaFlotante();
 });
+
+// Inicialización defensiva si el DOM ya estaba listo al cargar el módulo
+if (document.readyState === "complete" || document.readyState === "interactive") {
+    C_mostrarProporcionesActuales();
+    C_inicializarTarjetaFlotante();
+}
 
 if (!localStorage.getItem("C_proporciones")) {
     localStorage.setItem(
@@ -251,6 +258,14 @@ function C_mostrarProporcionesActuales() {
         document.getElementById("bolsaDato").textContent = C_proporciones.C_tamanoBolsa ?? 25;
     }
 
+    // Actualizar indicador compacto en la píldora flotante para móviles
+    const pillArena = document.getElementById("pillArena");
+    if (pillArena) pillArena.textContent = C_proporciones.C_arena ?? 4;
+    const pillRipio = document.getElementById("pillRipio");
+    if (pillRipio) pillRipio.textContent = C_proporciones.C_ripio ?? 4;
+    const pillCemento = document.getElementById("pillCemento");
+    if (pillCemento) pillCemento.textContent = C_proporciones.C_cemento ?? 2;
+
     // Pre-cargar inputs y selects si están en la vista actual
     const arenaEl = document.getElementById("arena");
     const ripioEl = document.getElementById("ripio");
@@ -340,6 +355,48 @@ async function C_guardarPresupuesto() {
     }
 }
 
+// Control responsivo de la tarjeta flotante de proporciones en móviles y pantallas grandes
+function C_inicializarTarjetaFlotante() {
+    const aside = document.getElementById("proporcionesAside");
+    const backdrop = document.getElementById("proporcionesBackdrop");
+    const btnAbrir = document.getElementById("btnFloatingProporciones");
+    const btnCerrar = document.getElementById("btnCloseProporciones");
+
+    if (!aside || !btnAbrir) return;
+
+    const abrir = () => {
+        aside.classList.remove("hidden");
+        if (backdrop) backdrop.classList.remove("hidden");
+    };
+
+    const cerrar = () => {
+        aside.classList.add("hidden");
+        if (backdrop) backdrop.classList.add("hidden");
+    };
+
+    btnAbrir.addEventListener("click", abrir);
+    if (btnCerrar) btnCerrar.addEventListener("click", cerrar);
+    if (backdrop) backdrop.addEventListener("click", cerrar);
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && window.innerWidth < 1280) {
+            cerrar();
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1280) {
+            aside.classList.remove("hidden");
+            if (backdrop) backdrop.classList.add("hidden");
+        } else {
+            // En móvil, si el backdrop no está visible, ocultar la tarjeta
+            if (backdrop && backdrop.classList.contains("hidden")) {
+                aside.classList.add("hidden");
+            }
+        }
+    });
+}
+
 // Exponer las funciones para que los onclick de HTML sigan funcionando
 window.C_calculo_contrapiso = C_calculo_contrapiso;
 window.C_reinicio = C_reinicio;
@@ -347,3 +404,4 @@ window.C_mostrarProporciones = C_mostrarProporciones;
 window.C_mostrarProporcionesActuales = C_mostrarProporcionesActuales;
 window.C_ajustarProporciones = C_ajustarProporciones;
 window.C_guardarPresupuesto = C_guardarPresupuesto;
+window.C_inicializarTarjetaFlotante = C_inicializarTarjetaFlotante;
