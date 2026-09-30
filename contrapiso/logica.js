@@ -312,6 +312,9 @@ async function C_guardarPresupuesto() {
     const titulo = prompt("Nombre o referencia para este presupuesto:", ultimoCalculo.titulo);
     if (titulo === null) return; // Si canceló
 
+    const cliente = prompt("Ingrese el Nombre del Cliente (Ignorar si no hay cliente)", ultimoCalculo.cliente);
+    if (cliente === null) return;
+
     const btn = document.getElementById("btnGuardarPresupuesto");
     if (btn) {
         btn.disabled = true;
@@ -324,7 +327,8 @@ async function C_guardarPresupuesto() {
         titulo: titulo.trim() || ultimoCalculo.titulo,
         medidas: ultimoCalculo.medidas,
         materiales: ultimoCalculo.materiales,
-        costo_total: ultimoCalculo.costo_total
+        costo_total: ultimoCalculo.costo_total,
+        cliente: cliente.trim() || ultimoCalculo.cliente
     });
 
     if (error) {

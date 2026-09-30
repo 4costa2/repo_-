@@ -127,6 +127,12 @@ async function cargarPresupuestos(uid) {
                                 <h3 class="text-base font-bold text-white mt-2 leading-snug">
                                     ${p.titulo || 'Presupuesto'}
                                 </h3>
+
+                                 <!-- Título dado por el usuario -->
+                                <h3 class="text-base font-bold text-white mt-2 leading-snug">
+                                    Cliente: ${p.cliente || 'No Especificado'}
+                                </h3>
+
                                 <!-- Fecha formateada -->
                                 <p class="text-[11px] text-zinc-500 mt-0.5">${fecha}</p>
                             </div>
