@@ -5,12 +5,13 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.8/fir
 const navbar = document.getElementById("navbar");
 
 const estaEnSubcarpeta = ["contrapiso", "techo", "pared"].some((carpeta) =>
-    window.location.pathname.includes(`/${carpeta}/`),
+    window.location.pathname.toLowerCase().includes(carpeta),
 );
 
 const base = estaEnSubcarpeta ? "../" : "./";
 
-navbar.innerHTML = `
+if (navbar) {
+    navbar.innerHTML = `
 <header class="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 shadow-lg text-white">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 gap-3">
 
@@ -377,6 +378,7 @@ navbar.innerHTML = `
     </div>
 </div>
 `;
+}
 
 // Elementos del Modal
 const userModal = document.getElementById("userModal");

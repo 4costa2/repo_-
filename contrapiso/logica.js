@@ -1,5 +1,5 @@
-import { supabase } from "/js/supabase.js";
-import { auth } from "/js/firebase.js";
+import { supabase } from "../js/supabase.js";
+import { auth } from "../js/firebase.js";
 
 let ultimoCalculo = null;
 
@@ -345,7 +345,7 @@ async function C_guardarPresupuesto() {
         btn.classList.remove("bg-emerald-500", "hover:bg-emerald-400");
         btn.classList.add("bg-zinc-800", "text-emerald-400", "border", "border-emerald-500/30");
         btn.innerHTML = `<span>✓ Guardado con éxito</span>`;
-z
+
         // Mostrar enlace opcional para ir al Home si el usuario desea
         let linkHome = document.getElementById("linkIrAlHome");
         if (!linkHome && btn.parentNode) {
