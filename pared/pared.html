@@ -40,7 +40,70 @@
             </p>
           </header>
 
-          <!-- Proporciones actuales y acciones -->
+          <!-- BANNER PLAN PREMIUM -->
+          <div class="relative overflow-hidden rounded-2xl border border-sky-500/30 bg-gradient-to-b from-sky-500/10 via-zinc-900/70 to-zinc-950/80 p-6 sm:p-8 text-center space-y-5 shadow-xl">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-500/30 text-sky-400 text-xs font-semibold uppercase tracking-wider">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span>Función Exclusiva PRO</span>
+            </div>
+
+            <!-- Título y descripción -->
+            <div class="space-y-2 max-w-lg mx-auto">
+              <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                ¿Querés calcular materiales de Paredes?
+              </h2>
+              <p class="text-sm text-zinc-300 leading-relaxed">
+                El módulo de estimación avanzada para paredes y mortero forma parte de nuestro <span class="text-sky-400 font-semibold">Plan Premium</span>.
+              </p>
+            </div>
+
+            <!-- Beneficios incluidos -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-md mx-auto text-left text-xs text-zinc-300 py-2">
+              <div class="flex items-center gap-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5">
+                <span class="text-sky-400 font-bold">✓</span>
+                <span>Cálculo exacto de ladrillos por m²</span>
+              </div>
+              <div class="flex items-center gap-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5">
+                <span class="text-sky-400 font-bold">✓</span>
+                <span>Dosificación de mortero y cemento</span>
+              </div>
+              <div class="flex items-center gap-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5">
+                <span class="text-sky-400 font-bold">✓</span>
+                <span>Módulo de Techos incluido</span>
+              </div>
+              <div class="flex items-center gap-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5">
+                <span class="text-sky-400 font-bold">✓</span>
+                <span>Historial de obras ilimitado</span>
+              </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              <button onclick="alert('¡Gracias por tu interés! Muy pronto estará disponible la pasarela de suscripción mensual.')"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold py-3 px-6 rounded-xl transition duration-200 shadow-lg shadow-sky-500/20 text-sm cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span>Suscribite al Plan Premium</span>
+              </button>
+              <a href="../contrapiso/contrapiso.html"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-medium py-3 px-6 rounded-xl transition duration-200 text-sm">
+                <span>Ir a Contrapiso (Gratis)</span>
+              </a>
+            </div>
+
+            <p class="text-[11px] text-zinc-500">
+              Suscripción mensual accesible para albañiles y contratistas. Cancelá en cualquier momento.
+            </p>
+          </div>
+
+          <!--
+          SECCIÓN COMENTADA TEMPORALMENTE (SE DESBLOQUEA CON PLAN PREMIUM):
+          ==================================================================
+          [Proporciones actuales y acciones]
           <div class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
             <div class="flex items-center justify-between">
               <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
@@ -50,10 +113,6 @@
               <div class="flex gap-2">
                 <button onclick="mostrarProporciones()"
                   class="inline-flex items-center gap-1.5 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/20 text-xs font-medium px-3 py-1.5 rounded-xl transition cursor-pointer">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
                   <span>Configurar</span>
                 </button>
                 <button onclick="reinicio()"
@@ -76,51 +135,41 @@
             </div>
           </div>
 
-          <!-- Div de configuración de proporciones (desplegable con animación JS) -->
+          [Div de configuración de proporciones]
           <div id="form_proporciones"
             class="flex flex-col bg-zinc-900/70 p-5 rounded-2xl border border-zinc-800/80 space-y-4 max-h-0 opacity-0 overflow-hidden transition-all duration-500">
-
             <div>
               <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
                 Ajustar proporciones
               </h2>
-              <p class="text-xs text-zinc-400 mt-1">
-                Las proporciones por defecto son 8 baldes de arena y 2.5 de cemento.
-              </p>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full">
               <div>
                 <label for="arena" class="block text-xs font-medium text-zinc-400 mb-1.5">Arena (baldes)</label>
                 <input type="number" id="arena" placeholder="8"
                   class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
               </div>
-
               <div>
                 <label for="cemento" class="block text-xs font-medium text-zinc-400 mb-1.5">Cemento (baldes)</label>
                 <input type="number" id="cemento" placeholder="2.5"
                   class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
               </div>
             </div>
-
             <button onclick="ajustarProporciones()"
               class="w-full bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold py-3 rounded-xl transition duration-200 shadow-lg shadow-sky-500/20 cursor-pointer text-sm">
               Guardar Proporciones
             </button>
           </div>
 
-          <!-- Formulario principal de cálculo -->
+          [Formulario principal de cálculo]
           <div id="form_rectangulo" class="formulario block space-y-6">
             <form onsubmit="calculo_contrapiso(event)" class="space-y-5">
-
-              <!-- Dimensiones -->
               <div class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
                 <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
                   Dimensiones de la pared
                 </h2>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                   <div>
                     <label for="tamanoBalde" class="block text-xs font-medium text-zinc-400 mb-1.5">Tamaño balde (lts)</label>
@@ -144,21 +193,17 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Costos de materiales -->
               <div class="bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800/80 space-y-4">
                 <h2 class="text-xs font-semibold text-sky-400 uppercase tracking-wider flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
                   Costo de los materiales (opcional)
                 </h2>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
                     <label for="precio_arena" class="block text-xs font-medium text-zinc-400 mb-1.5">Precio m³ arena</label>
                     <input type="number" id="precio_arena" step="any" placeholder="$ 1000"
                       class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition text-sm">
                   </div>
-
                   <div>
                     <label for="precio_cemento" class="block text-xs font-medium text-zinc-400 mb-1.5">Precio bolsa cemento</label>
                     <input type="number" id="precio_cemento" step="any" placeholder="$ 1000"
@@ -166,18 +211,15 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Botón calcular -->
               <button type="submit"
                 class="w-full bg-sky-500 hover:bg-sky-400 text-zinc-950 font-semibold py-3.5 rounded-xl transition duration-200 shadow-lg shadow-sky-500/20 cursor-pointer text-sm sm:text-base">
                 Calcular Presupuesto
               </button>
-
-              <!-- Resultado -->
               <div id="resultado_1"
                 class="mt-4 empty:hidden bg-zinc-900/90 border border-zinc-800 p-5 rounded-2xl space-y-2 text-sm shadow-inner"></div>
             </form>
           </div>
+          -->
 
         </div>
       </div>
@@ -191,7 +233,7 @@
     </div>
   </main>
 
-  <script src="logica.js"></script>
+  <!-- <script src="logica.js"></script> -->
   <script type="module" src="/js/navbar.js"></script>
 </body>
 
